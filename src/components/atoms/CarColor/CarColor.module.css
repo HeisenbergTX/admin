@@ -1,0 +1,75 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.title {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.blockTextField {
+  display: flex;
+  width: 100%;
+}
+
+.input {
+  margin: 0;
+}
+
+.buttonAddColor {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 16px;
+  margin-left: 5px;
+  border: 1px solid var(--gray-fill-icon);
+  border-radius: 4px;
+  transition: all 0.3s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.buttonAddColor span {
+  position: absolute;
+  background: var(--gray-fill-icon);
+  display: block;
+}
+
+.buttonAddColor:hover {
+  border: 1px solid var(--blue-color);
+}
+
+.buttonAddColor:active {
+  transform: scale(0.95);
+}
+
+.buttonAddColor span:first-child {
+  top: calc(50% - 1px);
+  left: calc(50% - 10px);
+  width: 20px;
+  height: 2px;
+}
+
+.buttonAddColor span:last-child {
+  top: calc(50% - 10px);
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 20px;
+}
+
+.checkbox {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.text {
+  font-family: "Roboto-Regular", sans-serif;
+  margin: 0;
+  margin-left: 6px;
+  font-size: 12px;
+}

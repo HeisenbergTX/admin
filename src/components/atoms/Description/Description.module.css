@@ -1,0 +1,9 @@
+.section {
+  padding: 0 20px;
+  font-size: 13px;
+}
+.description {
+  margin: 0;
+  margin-top: 20px;
+  font-weight: 500;
+}

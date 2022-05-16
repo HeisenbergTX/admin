@@ -4,8 +4,6 @@ import { styled } from "@mui/material/styles";
 import {
   TextField,
   Button,
-  FormControl,
-  InputLabel,
   OutlinedInput,
   IconButton,
   InputAdornment,
@@ -13,10 +11,10 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import cn from "classnames";
-import logo from "../../../images/Logo.svg";
+import logo from "../../images/Logo.svg";
 import style from "./Login.module.css";
-import { getLogin, getPassword, postLogin } from "../../../store/login/actions";
-import { getLoginData } from "../../../store/login/selectors";
+import { getLogin, getPassword, postLogin } from "../../store/login/actions";
+import { getLoginData } from "../../store/login/selectors";
 import { useState } from "react";
 
 export const Login = () => {
@@ -33,10 +31,14 @@ export const Login = () => {
     borderRadius: "5px",
     border: "1px solid #007BFF",
     textTransform: "none",
+    transition: "0.3s",
     "&:hover": {
       backgroundColor: "#0069d9",
       borderColor: "#0062cc",
       boxShadow: "none",
+    },
+    "&:active": {
+      transform: "scale(0.95)",
     },
   });
 
@@ -60,7 +62,6 @@ export const Login = () => {
 
   const handleClickShowPassword = () => {
     setPasswordVisibility(!passwordVisibility);
-    setTimeout(() => setPasswordVisibility(false), 3000);
   };
 
   return (

@@ -1,0 +1,41 @@
+.section {
+  font-family: "Helvetica", sans-serif;
+  color: var(--blue-color-black);
+  margin-top: 20px;
+  height: 100%;
+}
+
+.nameCard {
+  margin: 0;
+  font-weight: 400;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.carSetting {
+  margin-top: 20px;
+}
+
+@media (min-width: 540px) {
+  .nameCard {
+    margin-left: 20px;
+  }
+  .content {
+    margin: 0 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    display: flex;
+  }
+  .car {
+    min-width: 280px;
+    max-width: 340px;
+    margin-right: 25px;
+  }
+  .carSetting {
+    width: 100%;
+    margin: 0;
+  }
+}

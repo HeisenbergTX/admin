@@ -1,6 +1,15 @@
 :root {
+  --gray-text-color: #5a6169;
+  --dark-text-color: #495057;
+  --white-background-color: #e1e5eb;
+  --gray-fill-icon: #cacedb;
+  --blue-color: #007bff;
   --white-color: #fff;
   --blue-color-black: #3d5170;
+  --blue-gray-color: #818ea3;
+  --gray-background-color: #e9ecef;
+  --gray-color: #cacedb;
+  --red-color: #c4183c;
 }
 
 body {

@@ -37,7 +37,6 @@ function* PostLoginSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postLogin, payload);
     yield put(getTokens(res.data));
-    console.log(res.data.data);
   } catch (e: any) {
     console.log("error");
   }
