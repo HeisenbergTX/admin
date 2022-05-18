@@ -6,4 +6,9 @@
   margin: 0;
   margin-top: 20px;
   font-weight: 500;
+  color: var(--gray-color);
+}
+
+.text {
+  color: var(--gray-text-color);
 }

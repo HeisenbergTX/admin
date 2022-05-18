@@ -27,6 +27,12 @@
   width: 280px;
 }
 
+@media (min-width: 540px) {
+  .textField {
+    width: 320px;
+  }
+}
+
 @media (min-width: 1024px) {
   .section {
     height: 60vh;
@@ -39,7 +45,6 @@
     flex-wrap: wrap;
   }
   .textField {
-    max-width: 320px;
     margin-right: 20px;
   }
   .blockInput {

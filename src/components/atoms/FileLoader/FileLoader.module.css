@@ -4,7 +4,7 @@
   width: 232px;
   height: 30px;
   margin-top: 11px;
-  border: 0.5px solid var(--gray-color);
+  border: 0.5px solid var(--gray-fill-icon);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -34,7 +34,7 @@
   height: 100%;
   font-size: 12px;
   background: var(--gray-background-color);
-  border-left: 1px solid var(--gray-color);
+  border-left: 1px solid var(--gray-fill-color);
   cursor: pointer;
   transition: all 0.3s;
 }

@@ -36,8 +36,8 @@
 
 .range {
   width: 100%;
-  border-top: 1px solid var(--gray-color);
-  border-bottom: 1px solid var(--gray-color);
+  border-top: 1px solid var(--gray-fill-color);
+  border-bottom: 1px solid var(--gray-fill-color);
 }
 
 .description {

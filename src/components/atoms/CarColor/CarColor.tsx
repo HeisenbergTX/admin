@@ -22,10 +22,10 @@ export const CarColor = () => {
       </div>
       {colors.map((color: any, index: number) => {
         return (
-          <div className={style.checkbox} key={index}>
-            <input className={style.input} type="checkbox" />
-            <span className={style.text}>{color}</span>
-          </div>
+          <label className={style.customCheckbox} key={index}>
+            <input type="checkbox" />
+            <span>{color}</span>
+          </label>
         );
       })}
     </section>

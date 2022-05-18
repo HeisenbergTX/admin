@@ -1,5 +1,6 @@
 .section {
   font-family: "Helvetica", sans-serif;
+  color: var(--blue-color-black);
 }
 
 .burgerMenu {
@@ -36,7 +37,6 @@
   font-size: 15px;
   height: 50px;
   border-top: 1px solid var(--white-background-color);
-  color: var(--blue-color-black);
   fill: var(--gray-fill-icon);
   display: flex;
   justify-content: start;
@@ -57,4 +57,10 @@
 
 .text {
   margin-left: 14px;
+}
+
+@media (min-width: 1024px) {
+  .burgerMenu {
+    display: none;
+  }
 }

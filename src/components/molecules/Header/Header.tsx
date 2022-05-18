@@ -37,17 +37,19 @@ export const Header = () => {
         </IconButton>
         <InputBase placeholder="Поиск ..." />
       </div>
-      <img
-        className={style.notifications}
-        src={notifications}
-        alt="Notifications"
-      />
+      <div className={style.notifications}>
+        <img src={notifications} alt="Notifications" />
+        <div className={style.notificationsCount}>2</div>
+      </div>
       <div
         onClick={() => setOpenOptions(!openOptions)}
         className={style.userOptions}
       >
         <Avatar className={style.avatar} src={avatar} alt="Avatar" />
         <p className={style.nameUser}>Admin</p>
+        <div
+          className={cn(style.arrow, { [style.rotateArrow]: openOptions })}
+        />
         <button
           onClick={clickLogout}
           className={cn(style.logout, { [style.active]: openOptions })}

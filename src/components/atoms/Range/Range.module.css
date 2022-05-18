@@ -1,13 +1,22 @@
 .section {
-  padding: 16px 20px;
+  padding: 15px 20px;
   height: 30px;
+  border-top: 1px solid var(--gray-fill-icon);
+  border-bottom: 1px solid var(--gray-fill-icon);
 }
 
 .infoBlock {
   font-size: 12px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: var(--gray-text-colors);
+}
+
+.title {
+  margin: 0;
+  color: var(--gray-color);
 }
 
 .text {
