@@ -37,10 +37,12 @@
   .blockTextField {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
   }
   .textField {
     max-width: 320px;
+    margin-right: 20px;
+  }
+  .blockInput {
     margin-right: 20px;
   }
 }

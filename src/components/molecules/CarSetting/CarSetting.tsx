@@ -9,7 +9,7 @@ export const CarSetting = () => {
       <div className={style.settings}>
         <h3 className={style.title}>Настройки автомобиля</h3>
         <div className={style.blockTextField}>
-          <div>
+          <div className={style.blockInput}>
             <p className={style.nameTextField}>Модель автомобиля</p>
             <TextField
               className={style.textField}
@@ -18,7 +18,7 @@ export const CarSetting = () => {
               placeholder="Название автомобиля"
             />
           </div>
-          <div>
+          <div className={style.blockInput}>
             <p className={style.nameTextField}>Тип автомобиля</p>
             <TextField
               className={style.textField}
@@ -27,7 +27,7 @@ export const CarSetting = () => {
               placeholder="Тип автомобиля"
             />
           </div>
-          <div>
+          <div className={style.blockInput}>
             <article className={style.textField}>
               <CarColor />
             </article>
