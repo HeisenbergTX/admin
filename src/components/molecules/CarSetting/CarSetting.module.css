@@ -1,0 +1,53 @@
+.section {
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  background: var(--white-color);
+  border-radius: 10px;
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+.title {
+  font-family: "Roboto-Regular", sans-serif;
+  font-weight: 500;
+  margin: 0;
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+.nameTextField {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.textField {
+  width: 280px;
+}
+
+@media (min-width: 540px) {
+  .textField {
+    width: 320px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .blockTextField {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .textField {
+    margin-right: 20px;
+  }
+  .blockInput {
+    margin-right: 20px;
+  }
+}

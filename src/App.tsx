@@ -1,5 +1,5 @@
 import style from "./App.module.css";
-import { AppRoute } from "./pages/Login/AppRoute";
+import { AppRoute } from "./pages/AppRoute/AppRoute";
 
 function App() {
   return (
