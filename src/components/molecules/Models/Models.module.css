@@ -1,0 +1,52 @@
+.section {
+  background: var(--white-color);
+  position: relative;
+  margin-top: 20px;
+  overflow-x: auto;
+  min-height: 65vh;
+  max-height: 70vh;
+}
+
+.filterModels {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: var(--white-color);
+}
+
+.content {
+  position: relative;
+}
+
+.table {
+  position: sticky;
+  top: 5.1em;
+  border-top: 1px solid var(--gray-fill-icon);
+  min-width: min-content;
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+.modelsItem {
+  min-width: min-content;
+  margin-top: 100px;
+}
+
+.link {
+  min-width: min-content;
+  text-decoration: none;
+}
+
+.item {
+  border-top: 1px solid var(--gray-fill-icon);
+  min-width: min-content;
+  color: var(--blue-color-black);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--white-background-color);
+}

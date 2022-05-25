@@ -1,23 +1,26 @@
 import style from "./Car.module.css";
-import car from "../../../images/car.svg";
 import { FileLoader } from "../../atoms/FileLoader/FileLoader";
 import { Range } from "../../atoms/Range/Range";
 import { Description } from "../../atoms/Description/Description";
+import { useSelector } from "react-redux";
+import { getChangeCarCard } from "../../../store/carCard/selectors";
 
 export const Car = () => {
+  const valueCar = useSelector(getChangeCarCard);
+
   return (
     <section className={style.section}>
-      <img className={style.imgCar} src={car} alt="car" />
-      <p className={style.modelCar}>Hyndai, i30 N</p>
-      <p className={style.typeCar}>Компакт-кар</p>
+      <img className={style.imgCar} src={valueCar?.thumbnail?.path} alt="car" />
+      <p className={style.modelCar}>{valueCar?.name}</p>
+      <p className={style.typeCar}>{valueCar?.categoryId?.name}</p>
       <article className={style.fileLoader}>
         <FileLoader />
       </article>
       <article className={style.range}>
-        <Range />
+        <Range tank={valueCar?.tank} />
       </article>
       <article className={style.description}>
-        <Description />
+        <Description description={valueCar?.description} />
       </article>
     </section>
   );

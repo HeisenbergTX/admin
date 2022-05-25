@@ -1,4 +1,3 @@
-import React from "react";
 import cn from "classnames";
 import style from "./BurgerMenu.module.css";
 import { useDispatch, useSelector } from "react-redux";

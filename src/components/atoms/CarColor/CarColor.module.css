@@ -39,7 +39,7 @@
 }
 
 .buttonAddColor:active {
-  transform: scale(0.95);
+  border: 1px solid var(--blue-color-black);
 }
 
 .buttonAddColor span:first-child {

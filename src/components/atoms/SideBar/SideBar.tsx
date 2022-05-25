@@ -6,10 +6,17 @@ import { ReactComponent as BlogInfo } from "../../../icons/blogIcon.svg";
 import { ReactComponent as PostsIcon } from "../../../icons/postsIcon.svg";
 import { ReactComponent as NewPostIcon } from "../../../icons/newPostIcon.svg";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openSideBar } from "../../../store/modalWindows/actions";
 
 export const SideBar = () => {
+  const dispatch = useDispatch();
+
+  const clickNavLink = () => dispatch(openSideBar(false));
+
   return (
-    <section className={style.section}>
+    <aside className={style.section}>
       <article className={style.burgerMenu}>
         <BurgerMenu />
       </article>
@@ -17,20 +24,29 @@ export const SideBar = () => {
         <img className={style.image} src={logo} alt="logo" />
         <p className={style.title}>Need fro car</p>
       </article>
+      <NavLink
+        onClick={clickNavLink}
+        to={"admin/card/models"}
+        className={style.item}
+      >
+        <PostsIcon />
+        <span className={style.text}>Список автомобилей</span>
+      </NavLink>
       <nav className={style.nav}>
-        <div className={cn(style.item, style.active)}>
+        <NavLink
+          onClick={clickNavLink}
+          to={"admin/card/car"}
+          className={style.item}
+        >
           <BlogInfo />
           <span className={style.text}>Карточка автомобиля</span>
-        </div>
-        <div className={cn(style.item, { [style.active]: false })}>
-          <PostsIcon />
-          <span className={style.text}>Список автомобилей</span>
-        </div>
+        </NavLink>
+
         <div className={style.item}>
           <NewPostIcon />
           <span className={style.text}>Список заказов</span>
         </div>
       </nav>
-    </section>
+    </aside>
   );
 };
