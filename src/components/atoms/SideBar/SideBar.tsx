@@ -32,21 +32,22 @@ export const SideBar = () => {
         <PostsIcon />
         <span className={style.text}>Список автомобилей</span>
       </NavLink>
-      <nav className={style.nav}>
-        <NavLink
-          onClick={clickNavLink}
-          to={"admin/card/car"}
-          className={style.item}
-        >
-          <BlogInfo />
-          <span className={style.text}>Карточка автомобиля</span>
-        </NavLink>
-
-        <div className={style.item}>
-          <NewPostIcon />
-          <span className={style.text}>Список заказов</span>
-        </div>
-      </nav>
+      <NavLink
+        onClick={clickNavLink}
+        to={"admin/card/car"}
+        className={style.item}
+      >
+        <BlogInfo />
+        <span className={style.text}>Карточка автомобиля</span>
+      </NavLink>
+      <NavLink
+        onClick={clickNavLink}
+        to={"admin/card/orders"}
+        className={style.item}
+      >
+        <NewPostIcon />
+        <span className={style.text}>Список заказов</span>
+      </NavLink>
     </aside>
   );
 };

@@ -11,9 +11,12 @@ export const CountModels = (payload: number) => ({
   payload,
 });
 
-export const FetchModelsRequest = (payload: number) => ({
+export const FetchModelsRequest = (page: number, id: string | undefined) => ({
   type: FETCH_MODELS_REQUEST,
-  payload,
+  payload: {
+    page,
+    id,
+  },
 });
 
 export const FetchModelsSuccess = (payload: any) => ({

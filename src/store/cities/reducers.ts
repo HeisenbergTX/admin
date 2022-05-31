@@ -1,15 +1,15 @@
-import { ICategories } from "../interfaces";
+import { ICity } from "../interfaces";
 import {
-  FETCH_CATEGORY_REQUEST,
-  FETCH_CATEGORY_SUCCESS,
-  FETCH_CATEGORY_ERROR,
-  GET_CATEGORY_NAME,
+  FETCH_REQUEST_CITIES,
+  FETCH_SUCCESS_CITIES,
+  FETCH_ERROR_CITIES,
+  GET_CITY_NAME,
 } from "./types";
 
 interface IState {
   pending: boolean;
-  categories: ICategories[];
-  categoryName: {
+  cities: ICity[];
+  cityName: {
     name: string;
     id: string | undefined;
   };
@@ -18,9 +18,9 @@ interface IState {
 
 const initialState: IState = {
   pending: false,
-  categories: [],
-  categoryName: {
-    name: "Все категории",
+  cities: [],
+  cityName: {
+    name: "Любой",
     id: undefined,
   },
   error: null,
@@ -31,26 +31,26 @@ export default (
   { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
-    case FETCH_CATEGORY_REQUEST:
+    case FETCH_REQUEST_CITIES:
       return {
         ...state,
         pending: true,
       };
-    case FETCH_CATEGORY_SUCCESS:
+    case FETCH_SUCCESS_CITIES:
       return {
         ...state,
         pending: false,
-        categories: payload.categories,
+        cities: payload.cities,
       };
-    case GET_CATEGORY_NAME:
+    case GET_CITY_NAME:
       return {
         ...state,
-        categoryName: payload,
+        cityName: payload,
       };
-    case FETCH_CATEGORY_ERROR:
+    case FETCH_ERROR_CITIES:
       return {
         ...state,
-        error: payload.error,
+        error: payload,
       };
     default:
       return state;

@@ -4,7 +4,7 @@ import { Header } from "../../components/molecules/Header/Header";
 import { CarCard } from "../../components/organisms/CarCard/CarCard";
 import { Footer } from "../../components/molecules/Footer/Footer";
 import { SideBar } from "../../components/atoms/SideBar/SideBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getValueSideBar } from "../../store/modalWindows/selectors";
 import { useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -12,9 +12,20 @@ import { pullTokens } from "../../store/login/selectors";
 import { useCookies } from "react-cookie";
 import { ModelsCard } from "../../components/organisms/ModelsCard/ModelsCard";
 import { Login } from "../Login/Login";
+import { OrdersCard } from "../../components/organisms/OrdersCard/OrdersCard";
+import { getCategories } from "../../store/categories/selectors";
+import { FetchCategoryRequest } from "../../store/categories/actions";
+import { getCities } from "../../store/cities/selectors";
+import { FetchRequestCities } from "../../store/cities/actions";
+import { getRates } from "../../store/rates/selectors";
+import { FetchRateRequest } from "../../store/rates/actions";
 
 export const Cards = () => {
+  const dispatch = useDispatch();
   const isOpenSideBar = useSelector(getValueSideBar);
+  const categories = useSelector(getCategories);
+  const cities = useSelector(getCities);
+  const rates = useSelector(getRates);
   const tokens = useSelector(pullTokens);
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,27 +38,35 @@ export const Cards = () => {
     cookies.refresh_token,
   ];
 
-  const tokenPresence = arrTokens.some((token) => token);
-
   useEffect(() => {
-    if (tokens) {
-      setCookie("access_token", tokens?.access_token, { path: "/" });
-      setCookie("refresh_token", tokens?.refresh_token, { path: "/" });
-      navigate("admin/card/models");
+    if (categories.length === 0) {
+      dispatch(FetchCategoryRequest());
     }
-  }, [tokens]);
-
-  useEffect(() => {
+    if (cities.length === 0) {
+      dispatch(FetchRequestCities());
+    }
+    if (rates.length === 0) {
+      dispatch(FetchRateRequest());
+    }
     if (location.pathname !== "admin/login" && tokenPresence === false) {
       navigate("admin/login");
     }
-  }, []);
-
-  useEffect(() => {
     if (isOpenSideBar) {
       document.body.style.overflowY = "hidden";
     }
   }, []);
+
+  const tokenPresence = arrTokens.some((token) => token);
+
+  useEffect(() => {
+    if (tokens) {
+      setCookie("access_token", tokens?.access_token, { path: "/admin/card/" });
+      setCookie("refresh_token", tokens?.refresh_token, {
+        path: "/admin/card/",
+      });
+      navigate("admin/card/models");
+    }
+  }, [tokens]);
 
   return (
     <>
@@ -60,6 +79,7 @@ export const Cards = () => {
           >
             <SideBar />
           </aside>
+
           <div className={style.blockContent}>
             <article className={style.header}>
               <Header />
@@ -69,6 +89,7 @@ export const Cards = () => {
                 <Route path="/admin/card/">
                   <Route path="models" element={<ModelsCard />} />
                   <Route path="car" element={<CarCard />} />
+                  <Route path="orders" element={<OrdersCard />} />
                 </Route>
               </Routes>
             </article>

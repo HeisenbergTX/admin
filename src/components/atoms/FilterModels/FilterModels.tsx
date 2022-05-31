@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import cn from "classnames";
 import style from "./FilterModels.module.css";
-import { ICategories, IModels } from "../../../store/interfaces";
-import {
-  FetchCategoryRequest,
-  GetCategoryName,
-} from "../../../store/categories/actions";
+import { ICategories } from "../../../store/interfaces";
+import { GetCategoryName } from "../../../store/categories/actions";
 import {
   getCategories,
   getCategoryName,
@@ -19,13 +15,10 @@ export const FilterModels = () => {
   const categories = useSelector(getCategories);
   const categoryName = useSelector(getCategoryName);
   const [showDataBlock, setShowDataBlock] = useState<boolean>(false);
-  const [filterName, setFilterName] = useState<any>("Все модели");
-
-  useEffect(() => {
-    if (categories.length === 0) {
-      dispatch(FetchCategoryRequest());
-    }
-  }, [categories]);
+  const [filterName, setFilterName] = useState<any>({
+    name: undefined,
+    id: undefined,
+  });
 
   const showClickHandler = (e: any) => {
     e.preventDefault();
@@ -34,15 +27,15 @@ export const FilterModels = () => {
 
   const submit = (e: any) => {
     e.preventDefault();
-    if (filterName !== categoryName) {
-      dispatch(GetCategoryName(filterName));
+    if (filterName.name !== categoryName.name) {
+      dispatch(GetCategoryName(filterName.name, filterName.id));
     }
   };
 
   const clearFilter = (e: any) => {
     e.preventDefault();
-    setFilterName("Все модели");
-    dispatch(GetCategoryName("Все модели"));
+    setFilterName({ name: undefined, id: undefined });
+    dispatch(GetCategoryName("Все категории", undefined));
   };
 
   return (
@@ -55,7 +48,11 @@ export const FilterModels = () => {
               className={style.input}
               type="text"
               onClick={showClickHandler}
-              value={filterName}
+              value={
+                filterName.name === undefined
+                  ? categoryName.name
+                  : filterName.name
+              }
               autoComplete="off"
               readOnly
             />
@@ -71,7 +68,7 @@ export const FilterModels = () => {
                   <div
                     className={style.dropItem}
                     onClick={() => {
-                      setFilterName(category.name);
+                      setFilterName({ name: category.name, id: category.id });
                     }}
                     key={category.id}
                   >
@@ -86,13 +83,16 @@ export const FilterModels = () => {
         <button
           onClick={clearFilter}
           className={cn(style.clear, style.button, {
-            [style.hidden]: categoryName !== "Все модели",
+            [style.hidden]: categoryName.name !== "Все категории",
           })}
         >
           Сбросить
         </button>
         <button
-          disabled={filterName === categoryName && true}
+          disabled={
+            filterName.name === categoryName.name ||
+            (filterName.name === undefined && true)
+          }
           className={cn(style.submit, style.button)}
           onClick={submit}
         >

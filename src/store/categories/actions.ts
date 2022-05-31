@@ -14,9 +14,12 @@ export const FetchCategorySuccess = (payload: any) => ({
   payload,
 });
 
-export const GetCategoryName = (payload: string) => ({
+export const GetCategoryName = (name: string, id: string | undefined) => ({
   type: GET_CATEGORY_NAME,
-  payload,
+  payload: {
+    name,
+    id,
+  },
 });
 
 export const FetchCategoryError = (payload: any) => ({

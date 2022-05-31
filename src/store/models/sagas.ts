@@ -7,11 +7,18 @@ import { FETCH_MODELS_REQUEST } from "./types";
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
 const getModels = (payload: any) => {
-  return axios.get(`${urlAddress}?limit=10&page=${payload}`, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-    },
-  });
+  console.log(payload);
+
+  return axios.get(
+    `${urlAddress}?limit=10&page=${payload.page - 1}${
+      payload.id === undefined ? "" : `&categoryId=${payload.id}`
+    }`,
+    {
+      headers: {
+        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
+      },
+    }
+  );
 };
 
 interface ResGenerator {

@@ -1,18 +1,24 @@
-.form {
+.section {
   padding: 10px 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--blue-color-black);
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
 }
 
 .label {
-  width: 130px;
+  width: 150px;
   position: relative;
 }
 
+.titleFilter:first-child {
+  margin-top: 0;
+}
+
 .titleFilter {
-  margin: 0;
+  margin-top: 10px;
   margin-left: 5px;
   margin-bottom: 2.5px;
   font-size: 13px;
@@ -21,7 +27,7 @@
 .input {
   padding-left: 5px;
   display: block;
-  width: 130px;
+  width: 150px;
   height: 30px;
   font-size: 13px;
   font-weight: 500;
@@ -47,8 +53,8 @@
 .blockArrow {
   position: absolute;
   height: 100%;
-  top: 59%;
-  right: 10px;
+  top: 37%;
+  left: 125px;
 }
 
 .blockArrow span {
@@ -73,7 +79,7 @@
 .none {
   display: none;
   position: absolute;
-  width: 137px;
+  width: 157px;
   background: var(--gray-fill-icon);
   border-radius: 5px;
   border-top-left-radius: 3px;
@@ -85,10 +91,12 @@
 
 .dataList {
   height: 150px;
+  overflow-y: auto;
   font-size: 14px;
   display: flex;
   flex-direction: column;
   gap: 1px;
+  z-index: 1;
 }
 
 .dropItem {
@@ -108,50 +116,37 @@
   color: var(--blue-color-black);
 }
 
-.blockButton {
+.groupButton {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  align-items: start;
 }
 
-.button {
-  transition: all 0.3s;
-  width: 110px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: var(--white-color);
-  cursor: pointer;
-}
-
-.button:active {
-  transform: scale(0.95);
-}
-
-.button:disabled {
-  opacity: 0.5;
-  background: var(--gray-fill-icon);
-  cursor: no-drop;
-}
-
-.submit {
-  background-color: var(--blue-color);
-}
-
-.clear {
-  display: none;
-  background-color: var(--red-color);
+.cancel {
   margin-top: 10px;
-}
-.hidden {
-  display: block;
 }
 
 @media (min-width: 540px) {
-  .blockButton {
-    flex-direction: row;
+  .section {
+    align-items: flex-end;
   }
-  .clear {
-    margin: 0;
+  .form {
+    display: flex;
+  }
+  .titleFilter {
+    margin-top: 0;
+  }
+  .label:first-child {
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .groupButton {
+    flex-direction: row-reverse;
+  }
+  .cancel {
+    margin-top: 0;
     margin-right: 10px;
   }
 }

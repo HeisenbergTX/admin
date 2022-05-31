@@ -1,6 +1,7 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCategoryName } from "../../../store/categories/selectors";
 import {
   ChoosePageActive,
   FetchModelsRequest,
@@ -19,6 +20,7 @@ export const ModelsCard = () => {
   const models = useSelector(getModels);
   const pageActive = useSelector(getPageActive);
   const count = useSelector(getCountModels);
+  const categoryId = useSelector(getCategoryName);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(ChoosePageActive(value));
@@ -29,15 +31,15 @@ export const ModelsCard = () => {
 
   useEffect(() => {
     if (models.length === 0) {
-      dispatch(FetchModelsRequest(page));
+      dispatch(FetchModelsRequest(page, undefined));
     }
   }, [models]);
 
   useEffect(() => {
-    if (models.length > 0 && page == pageActive) {
-      dispatch(FetchModelsRequest(page));
+    if ((models.length > 0 && page == pageActive) || categoryId.id) {
+      dispatch(FetchModelsRequest(page, categoryId.id));
     }
-  }, [page]);
+  }, [page, categoryId.id]);
 
   return (
     <section className={style.section}>

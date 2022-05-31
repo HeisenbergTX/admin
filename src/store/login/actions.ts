@@ -1,4 +1,10 @@
-import { GET_LOGIN, GET_PASSWORD, GET_TOKENS, POST_LOGIN } from "./types";
+import {
+  GET_ERROR,
+  GET_LOGIN,
+  GET_PASSWORD,
+  GET_TOKENS,
+  POST_LOGIN,
+} from "./types";
 
 export const getLogin = (payload: string) => ({
   type: GET_LOGIN,
@@ -12,6 +18,11 @@ export const getPassword = (payload: string) => ({
 
 export const postLogin = (payload: any) => ({
   type: POST_LOGIN,
+  payload,
+});
+
+export const getError = (payload: any) => ({
+  type: GET_ERROR,
   payload,
 });
 

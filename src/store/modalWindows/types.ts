@@ -1,1 +1,3 @@
 export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
+export const OPEN_FILTER_ORDER = "OPEN_FILTER_ORDER";
+export const OPEN_FILTER_MODEL = "OPEN_FILTER_MODEL";

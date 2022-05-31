@@ -38,3 +38,71 @@ export interface ICategories {
   updatedAt: number;
   name: string;
 }
+
+export interface IStatus {
+  name: string;
+  id: string;
+}
+
+export interface ICity {
+  updatedAt: number;
+  createdAt: number;
+  name: string;
+  id: string;
+}
+
+export interface IPoint {
+  address: string;
+  name: string;
+  id: string;
+}
+
+export interface IRate {
+  price: number;
+  rateTypeId?: string;
+  id: string;
+}
+
+export interface ICar {
+  name: string;
+  number: string;
+  thumbnail: IThumbnail;
+  description: string;
+  categoryId: ICategory;
+  priceMin: number;
+  priceMax: number;
+  tank: number;
+  colors: string[];
+  id: string;
+}
+
+export interface IThumbnail {
+  path: string;
+  mimetype: string;
+  originalname: string;
+  size: number;
+}
+
+export interface ICategory {
+  name: string;
+  description: string;
+  id: string;
+}
+
+export interface IOrders {
+  updatedAt: number;
+  createdAt: number;
+  orderStatusId: IStatus;
+  cityId: ICity;
+  pointId: IPoint;
+  color: string;
+  dateFrom: number;
+  dateTo: number;
+  price: number;
+  isFullTank: true;
+  isNeedChildChair: true;
+  isRightWheel: true;
+  rateId: IRate;
+  carId: ICar;
+  id: string;
+}

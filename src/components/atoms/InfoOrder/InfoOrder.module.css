@@ -1,0 +1,14 @@
+.section p {
+  margin: 0;
+  width: 190px;
+  overflow-wrap: break-word;
+}
+
+.section span {
+  color: var(--dark-text-color);
+}
+
+.modelName {
+  width: 190px;
+  color: var(--dark-text-color);
+}
