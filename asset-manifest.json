@@ -1,25 +1,16 @@
 {
   "files": {
-    "main.css": "/admin/static/css/main.750b7831.css",
-    "main.js": "/admin/static/js/main.98006bf8.js",
-    "static/media/Helvetica-Regular.otf": "/admin/static/media/Helvetica-Regular.da7db66db5a8e54a8308.otf",
-    "static/media/Roboto-Thin.ttf": "/admin/static/media/Roboto-Thin.1711b41f3ae4cb322eea.ttf",
-    "static/media/Roboto-Regular.ttf": "/admin/static/media/Roboto-Regular.a8d6ac03c7b96b7acb62.ttf",
-    "static/media/Roboto-Bold.ttf": "/admin/static/media/Roboto-Bold.75371f53f06181df75f1.ttf",
-    "static/media/Roboto-Light.ttf": "/admin/static/media/Roboto-Light.8be2d1487420548b3b8d.ttf",
-    "static/media/avatar.svg": "/admin/static/media/avatar.0b0ff7769aeb023119684505197cc41b.svg",
-    "index.html": "/admin/index.html",
-    "static/media/Logo.svg": "/admin/static/media/Logo.bc4f3ee8fbfa2ba0ccc054519f06dc93.svg",
-    "static/media/Notifications.svg": "/admin/static/media/Notifications.4a73f89d5ed8c6ab9e4fc585c327aa9d.svg",
-    "static/media/blogIcon.svg": "/admin/static/media/blogIcon.6ae020c96563974d78dc3b16ab2a3dee.svg",
-    "static/media/postsIcon.svg": "/admin/static/media/postsIcon.2b0f1636a63379fba7348cf736a8f7e9.svg",
-    "static/media/newPostIcon.svg": "/admin/static/media/newPostIcon.1d20595b4d970cdacf9c826fb55053e8.svg",
-    "static/media/Shape.svg": "/admin/static/media/Shape.3579bfb87cebc503bade29a80bc40826.svg",
-    "main.750b7831.css.map": "/admin/static/css/main.750b7831.css.map",
-    "main.98006bf8.js.map": "/admin/static/js/main.98006bf8.js.map"
+    "main.css": "/carsharingAdmin/static/css/main.073c9b0a.css",
+    "main.js": "/carsharingAdmin/static/js/main.f4a6613d.js",
+    "static/js/787.8048d2ac.chunk.js": "/carsharingAdmin/static/js/787.8048d2ac.chunk.js",
+    "static/media/logo.svg": "/carsharingAdmin/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/carsharingAdmin/index.html",
+    "main.073c9b0a.css.map": "/carsharingAdmin/static/css/main.073c9b0a.css.map",
+    "main.f4a6613d.js.map": "/carsharingAdmin/static/js/main.f4a6613d.js.map",
+    "787.8048d2ac.chunk.js.map": "/carsharingAdmin/static/js/787.8048d2ac.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.750b7831.css",
-    "static/js/main.98006bf8.js"
+    "static/css/main.073c9b0a.css",
+    "static/js/main.f4a6613d.js"
   ]
 }
