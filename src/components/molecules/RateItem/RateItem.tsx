@@ -11,7 +11,7 @@ export const RateItem = ({ rate }: any) => {
         <p className={style.periodRate}>
           {rate?.rateTypeId?.unit ? rate?.rateTypeId?.unit : "Неизвестно"}
         </p>
-        <p className={style.priceRate}>{rate?.price}</p>
+        <p className={style.priceRate}>{rate?.price}₽</p>
       </div>
       <CustomButton
         style={{

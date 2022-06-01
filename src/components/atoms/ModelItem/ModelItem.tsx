@@ -41,7 +41,7 @@ export const ModelItem: React.FC<IProps> = ({
             })
           : "-"}
       </p>
-      <p className={style.item}>{`${priceMin} - ${priceMax}`}</p>
+      <p className={style.item}>{`${priceMin}₽ - ${priceMax}₽`}</p>
       <p className={cn(style.item, style.description)}>{description}</p>
     </section>
   );

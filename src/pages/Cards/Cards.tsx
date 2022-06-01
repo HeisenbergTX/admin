@@ -20,6 +20,7 @@ import { FetchRequestCities } from "../../store/cities/actions";
 import { getRates } from "../../store/rates/selectors";
 import { FetchRateRequest } from "../../store/rates/actions";
 import { RateCard } from "../../components/organisms/RateCard/RateCard";
+import { CategoryCard } from "../../components/organisms/CategoryCard/CategoryCard";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ export const Cards = () => {
                   <Route path="models" element={<ModelsCard />} />
                   <Route path="car" element={<CarCard />} />
                   <Route path="orders" element={<OrdersCard />} />
+                  <Route path="categories" element={<CategoryCard />} />
                   <Route path="rates" element={<RateCard />} />
                 </Route>
               </Routes>

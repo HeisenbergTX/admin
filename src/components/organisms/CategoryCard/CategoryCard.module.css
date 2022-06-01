@@ -1,0 +1,86 @@
+.section {
+  color: var(--gray-color);
+  font-size: 13px;
+  position: relative;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.nameCard {
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.table {
+  border-top: 1px solid var(--white-background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.table p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--blue-color-black);
+}
+
+.table p:first-child {
+  width: 100px;
+}
+
+.table p:last-child {
+  width: fit-content;
+  text-align: right;
+}
+
+.block {
+  position: relative;
+  background-color: var(--white-color);
+  border-radius: 10px;
+  padding-top: 10px;
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+  max-height: fit-content;
+}
+
+.orderItem {
+  flex-grow: 1;
+  overflow-y: auto;
+  border-top: 1px solid var(--white-background-color);
+}
+
+.item {
+  height: max-content;
+}
+
+@media (min-width: 540px) {
+  .nameCard {
+    margin-left: 20px;
+  }
+  .block {
+    margin: 0 20px;
+    margin-top: 20px;
+  }
+}

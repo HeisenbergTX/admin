@@ -37,7 +37,7 @@ export const InfoOrder: React.FC<IProps> = ({
         Цвет: <span>{color}</span>
       </p>
       <p className={style.rate}>
-        Тариф: <span>{rate}</span>
+        Тариф: <span>{rate ? rate : "нет тарифа"}</span>
       </p>
     </section>
   );

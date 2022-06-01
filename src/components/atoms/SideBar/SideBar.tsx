@@ -50,6 +50,14 @@ export const SideBar = () => {
       </NavLink>
       <NavLink
         onClick={clickNavLink}
+        to={"admin/card/categories"}
+        className={style.item}
+      >
+        <PostsIcon />
+        <span className={style.text}>Список категорий</span>
+      </NavLink>
+      <NavLink
+        onClick={clickNavLink}
         to={"admin/card/rates"}
         className={style.item}
       >
