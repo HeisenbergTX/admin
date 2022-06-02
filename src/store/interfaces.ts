@@ -59,7 +59,11 @@ export interface IPoint {
 
 export interface IRate {
   price: number;
-  rateTypeId?: string;
+  rateTypeId?: {
+    unit: string;
+    name: string;
+    id: string;
+  };
   id: string;
 }
 
@@ -86,7 +90,7 @@ export interface IThumbnail {
 export interface ICategory {
   name: string;
   description: string;
-  id: string;
+  id?: string;
 }
 
 export interface IOrders {

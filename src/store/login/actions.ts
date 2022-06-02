@@ -1,20 +1,4 @@
-import {
-  GET_ERROR,
-  GET_LOGIN,
-  GET_PASSWORD,
-  GET_TOKENS,
-  POST_LOGIN,
-} from "./types";
-
-export const getLogin = (payload: string) => ({
-  type: GET_LOGIN,
-  payload,
-});
-
-export const getPassword = (payload: string) => ({
-  type: GET_PASSWORD,
-  payload,
-});
+import { GET_ERROR, GET_TOKENS, POST_LOGIN } from "./types";
 
 export const postLogin = (payload: any) => ({
   type: POST_LOGIN,

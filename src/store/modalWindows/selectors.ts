@@ -8,3 +8,9 @@ export const getValueFilterOrder = (state: RootState) =>
 
 export const getValueFilterModel = (state: RootState) =>
   state.modalWindows.openFilterModel;
+
+export const getValueCategoryModal = (state: RootState) =>
+  state.modalWindows.openCategoryModal;
+
+export const getValueRateModal = (state: RootState) =>
+  state.modalWindows.openRateModal;

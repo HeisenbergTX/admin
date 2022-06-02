@@ -1,9 +1,10 @@
-import { ICategories } from "../interfaces";
+import { ICategories, ICategory } from "../interfaces";
 import {
   FETCH_CATEGORY_REQUEST,
   FETCH_CATEGORY_SUCCESS,
   FETCH_CATEGORY_ERROR,
   GET_CATEGORY_NAME,
+  CHANGE_CATEGORY,
 } from "./types";
 
 interface IState {
@@ -13,6 +14,7 @@ interface IState {
     name: string;
     id: string | undefined;
   };
+  changeCategory: ICategory;
   error: null | string;
 }
 
@@ -22,6 +24,10 @@ const initialState: IState = {
   categoryName: {
     name: "Все категории",
     id: undefined,
+  },
+  changeCategory: {
+    name: "",
+    description: "",
   },
   error: null,
 };
@@ -46,6 +52,11 @@ export default (
       return {
         ...state,
         categoryName: payload,
+      };
+    case CHANGE_CATEGORY:
+      return {
+        ...state,
+        changeCategory: payload,
       };
     case FETCH_CATEGORY_ERROR:
       return {

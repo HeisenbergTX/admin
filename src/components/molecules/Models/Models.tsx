@@ -6,7 +6,7 @@ import {
   chooseDefaultCarCard,
 } from "../../../store/carCard/actions";
 import { IModels } from "../../../store/interfaces";
-import { toogleFilterModel } from "../../../store/modalWindows/actions";
+import { toggleFilterModel } from "../../../store/modalWindows/actions";
 import { getValueFilterModel } from "../../../store/modalWindows/selectors";
 import { getCountModels, getModels } from "../../../store/models/selectors";
 import { FilterModels } from "../../atoms/FilterModels/FilterModels";
@@ -21,7 +21,7 @@ export const Models = () => {
   const count = useSelector(getCountModels);
   const valueFilterModel = useSelector(getValueFilterModel);
 
-  const openFilterModel = () => dispatch(toogleFilterModel(!valueFilterModel));
+  const openFilterModel = () => dispatch(toggleFilterModel(!valueFilterModel));
 
   return (
     <section className={style.section}>

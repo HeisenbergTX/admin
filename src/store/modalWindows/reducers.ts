@@ -1,15 +1,25 @@
-import { OPEN_SIDE_BAR, OPEN_FILTER_ORDER, OPEN_FILTER_MODEL } from "./types";
+import {
+  OPEN_SIDE_BAR,
+  OPEN_FILTER_ORDER,
+  OPEN_FILTER_MODEL,
+  OPEN_CATEGORY_MODAL,
+  OPEN_RATE_MODAL,
+} from "./types";
 
 interface IState {
   openSideBar: boolean;
   openFilterOrder: boolean;
   openFilterModel: boolean;
+  openCategoryModal: boolean;
+  openRateModal: boolean;
 }
 
 const initialState: IState = {
   openSideBar: false,
   openFilterOrder: false,
   openFilterModel: false,
+  openCategoryModal: false,
+  openRateModal: false,
 };
 
 export default (
@@ -31,6 +41,16 @@ export default (
       return {
         ...state,
         openFilterModel: payload,
+      };
+    case OPEN_CATEGORY_MODAL:
+      return {
+        ...state,
+        openCategoryModal: payload,
+      };
+    case OPEN_RATE_MODAL:
+      return {
+        ...state,
+        openRateModal: payload,
       };
     default:
       return state;

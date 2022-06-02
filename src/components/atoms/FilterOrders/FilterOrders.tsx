@@ -12,7 +12,7 @@ import {
   chooseCityId,
   FethcRequestOrders,
 } from "../../../store/orders/actions";
-import { toogleFilterOrder } from "../../../store/modalWindows/actions";
+import { toggleFilterOrder } from "../../../store/modalWindows/actions";
 import { getRates } from "../../../store/rates/selectors";
 
 export const FilterOrders = () => {
@@ -52,7 +52,7 @@ export const FilterOrders = () => {
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(toogleFilterOrder(false));
+    dispatch(toggleFilterOrder(false));
     if (rateFilter.name !== rateName.name) {
       dispatch(chooseRateId(rateFilter.name, rateFilter.id));
     }

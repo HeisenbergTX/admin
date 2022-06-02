@@ -20,7 +20,7 @@ import { IOrders } from "../../../store/interfaces";
 import { CustomButton } from "../../../pages/Login/Login";
 import { FilterOrders } from "../../atoms/FilterOrders/FilterOrders";
 import { getValueFilterOrder } from "../../../store/modalWindows/selectors";
-import { toogleFilterOrder } from "../../../store/modalWindows/actions";
+import { toggleFilterOrder } from "../../../store/modalWindows/actions";
 import { getRates } from "../../../store/rates/selectors";
 
 export const OrdersCard = () => {
@@ -41,7 +41,7 @@ export const OrdersCard = () => {
     setPage(value);
   };
 
-  const openFilterOrder = () => dispatch(toogleFilterOrder(!valueFilterOrder));
+  const openFilterOrder = () => dispatch(toggleFilterOrder(!valueFilterOrder));
 
   const countPage = Math.floor(count / 10);
 
@@ -56,8 +56,6 @@ export const OrdersCard = () => {
       dispatch(FethcRequestOrders(page, cookies.access_token, cityId, rateId));
     }
   }, [page, cityId, rateId]);
-
-
 
   return (
     <section className={style.section}>

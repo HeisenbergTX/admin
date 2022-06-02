@@ -3,6 +3,7 @@ import {
   FETCH_CATEGORY_SUCCESS,
   FETCH_CATEGORY_ERROR,
   GET_CATEGORY_NAME,
+  CHANGE_CATEGORY,
 } from "./types";
 
 export const FetchCategoryRequest = () => ({
@@ -19,6 +20,19 @@ export const GetCategoryName = (name: string, id: string | undefined) => ({
   payload: {
     name,
     id,
+  },
+});
+
+export const changeCategory = (
+  id: string,
+  name: string,
+  description: string
+) => ({
+  type: CHANGE_CATEGORY,
+  payload: {
+    id,
+    name,
+    description,
   },
 });
 

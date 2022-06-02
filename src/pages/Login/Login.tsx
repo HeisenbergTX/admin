@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -13,8 +13,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import cn from "classnames";
 import logo from "../../images/Logo.svg";
 import style from "./Login.module.css";
-import { getLogin, getPassword, postLogin } from "../../store/login/actions";
-import { getLoginData } from "../../store/login/selectors";
+import { postLogin } from "../../store/login/actions";
 import { useState } from "react";
 
 export const CustomButton = styled(Button)({
@@ -40,21 +39,13 @@ export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const { register, handleSubmit, watch } = useForm();
   const dispatch = useDispatch();
-  const loginData = useSelector(getLoginData);
 
-  const onBlurLogin = () => {
-    const login = watch("login");
-    dispatch(getLogin(login));
-  };
-
-  const onBlurPassword = () => {
-    const password = watch("password");
-    dispatch(getPassword(password));
-  };
+  const username = watch("login");
+  const password = watch("password");
 
   const clickPostLoginData = () => {
-    if (loginData.password && loginData.username) {
-      dispatch(postLogin(loginData));
+    if (username && password) {
+      dispatch(postLogin({ username, password }));
     }
   };
 
@@ -80,7 +71,6 @@ export const Login = () => {
             size="small"
             className={style.textField}
             {...register("login")}
-            onBlur={onBlurLogin}
           />
           <p className={cn(style.text, style.textPassword)}>Пароль</p>
           <OutlinedInput
@@ -91,7 +81,6 @@ export const Login = () => {
             placeholder="Введите пароль"
             {...register("password")}
             onBlur={() => {
-              onBlurPassword();
               setPasswordVisibility(false);
             }}
             endAdornment={
