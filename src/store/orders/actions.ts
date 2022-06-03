@@ -1,3 +1,4 @@
+import { IOrders } from "../interfaces";
 import {
   COUNT_ORDERS,
   CHOOSE_PAGE_ACTIVE,
@@ -6,6 +7,7 @@ import {
   FETCH_ERROR_ORDERS,
   FILTER_CITY_ID,
   FILTER_RATE_ID,
+  CHANGE_ORDER
 } from "./types";
 
 export const CountOrders = (payload: number) => ({
@@ -56,4 +58,10 @@ export const FethcSuccessOrders = (payload: any) => ({
 
 export const FethcErrorOrders = (payload: any) => ({
   type: FETCH_ERROR_ORDERS,
+  payload,
+});
+
+export const changeOrder = (payload: IOrders) => ({
+  type: CHANGE_ORDER,
+  payload,
 });

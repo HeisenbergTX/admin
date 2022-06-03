@@ -8,7 +8,7 @@ const urlAddress = "https://api-factory.simbirsoft1.com/api/db/order";
 
 const getOrders = (payload: any) =>
   axios.get(
-    `${urlAddress}?limit=10&page=${
+    `${urlAddress}?limit=1&page=${
       payload.page === 0 ? payload.page : payload.page - 1
     }${payload.cityId.id ? `&cityId=${payload.cityId.id}` : ""}${
       payload.rateId.id ? `&rateId=${payload.rateId.id}` : ""

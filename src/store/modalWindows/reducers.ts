@@ -4,6 +4,7 @@ import {
   OPEN_FILTER_MODEL,
   OPEN_CATEGORY_MODAL,
   OPEN_RATE_MODAL,
+  OPEN_ORDER_MODAL,
 } from "./types";
 
 interface IState {
@@ -12,6 +13,7 @@ interface IState {
   openFilterModel: boolean;
   openCategoryModal: boolean;
   openRateModal: boolean;
+  openOrderModal: boolean;
 }
 
 const initialState: IState = {
@@ -20,6 +22,7 @@ const initialState: IState = {
   openFilterModel: false,
   openCategoryModal: false,
   openRateModal: false,
+  openOrderModal: false,
 };
 
 export default (
@@ -51,6 +54,11 @@ export default (
       return {
         ...state,
         openRateModal: payload,
+      };
+    case OPEN_ORDER_MODAL:
+      return {
+        ...state,
+        openOrderModal: payload,
       };
     default:
       return state;

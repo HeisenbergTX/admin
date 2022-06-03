@@ -1,9 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
+import { getValueOrderModal } from "../../../store/modalWindows/selectors";
+import { changeOrder } from "../../../store/orders/actions";
 import { ButtonGroup } from "../../atoms/ButtonGroup/ButtonGroup";
 import { CheckboxItem } from "../../atoms/CheckboxItem/CheckboxItem";
 import { InfoOrder } from "../../atoms/InfoOrder/InfoOrder";
 import style from "./OrderItem.module.css";
 
 export const OrderItem = ({ order }: any) => {
+  const dispatch = useDispatch();
+  const openModal = useSelector(getValueOrderModal);
+
   const name = order?.carId?.name;
   const city = order?.cityId?.name;
   const address = order?.pointId?.address;
@@ -12,6 +18,10 @@ export const OrderItem = ({ order }: any) => {
   const color = order?.color;
   const image = order?.carId?.thumbnail?.path;
   const rate = order?.rateId?.rateTypeId?.name;
+
+  if (openModal) {
+    dispatch(changeOrder(order));
+  }
 
   return (
     <section className={style.section}>

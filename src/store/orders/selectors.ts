@@ -13,3 +13,5 @@ export const getPageActive = (state: RootState) => state.orders?.pageActive;
 export const getRateId = (state: RootState) => state.orders.rateId;
 
 export const getCityId = (state: RootState) => state.orders.cityId;
+
+export const getValueOrder = (state: RootState) => state.orders.valueOrder;

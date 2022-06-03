@@ -14,3 +14,6 @@ export const getValueCategoryModal = (state: RootState) =>
 
 export const getValueRateModal = (state: RootState) =>
   state.modalWindows.openRateModal;
+
+export const getValueOrderModal = (state: RootState) =>
+  state.modalWindows.openOrderModal;

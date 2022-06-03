@@ -9,8 +9,6 @@ export const ModalRate = () => {
   const dispatch = useDispatch();
   const valueRate = useSelector(getValueRate);
 
-  console.log(valueRate?.price);
-
   const isCancelClick = () => {
     dispatch(toggleRateModal(false));
   };

@@ -1,3 +1,4 @@
+import { IOrders } from "../interfaces";
 import {
   COUNT_ORDERS,
   CHOOSE_PAGE_ACTIVE,
@@ -6,6 +7,7 @@ import {
   FETCH_ERROR_ORDERS,
   FILTER_RATE_ID,
   FILTER_CITY_ID,
+  CHANGE_ORDER,
 } from "./types";
 
 interface IState {
@@ -21,6 +23,7 @@ interface IState {
     name: string;
     id: string | undefined;
   };
+  valueOrder?: IOrders;
   error: string | null;
 }
 
@@ -80,6 +83,11 @@ export default (
       return {
         ...state,
         error: payload,
+      };
+    case CHANGE_ORDER:
+      return {
+        ...state,
+        valueOrder: payload,
       };
     default:
       return state;

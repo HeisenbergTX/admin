@@ -19,16 +19,20 @@ import cn from "classnames";
 import { IOrders } from "../../../store/interfaces";
 import { CustomButton } from "../../../pages/Login/Login";
 import { FilterOrders } from "../../atoms/FilterOrders/FilterOrders";
-import { getValueFilterOrder } from "../../../store/modalWindows/selectors";
+import {
+  getValueFilterOrder,
+  getValueOrderModal,
+} from "../../../store/modalWindows/selectors";
 import { toggleFilterOrder } from "../../../store/modalWindows/actions";
 import { getRates } from "../../../store/rates/selectors";
+import { ModalOrder } from "../../atoms/ModalOrder/ModalOrder";
 
 export const OrdersCard = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const orders = useSelector(getOrders);
   const pageActive = useSelector(getPageActive);
-  const rates = useSelector(getRates);
+  const openModal = useSelector(getValueOrderModal);
   const count = useSelector(getCountOrders);
   const cityId = useSelector(getCityId);
   const rateId = useSelector(getRateId);
@@ -61,6 +65,9 @@ export const OrdersCard = () => {
     <section className={style.section}>
       <h3 className={style.nameCard}>Список заказов</h3>
       <div className={style.block}>
+        <article className={cn(style.close, { [style.open]: openModal })}>
+          <ModalOrder />
+        </article>
         <article className={style.head}>
           <p className={style.textCount}>Заказов: {count}</p>
           <CustomButton

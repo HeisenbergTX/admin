@@ -7,7 +7,7 @@ import style from "./RateItem.module.css";
 export const RateItem = ({ rate }: any) => {
   const dispatch = useDispatch();
 
-  const openRateModal = (e: any) => {
+  const isOpenRateModal = (e: any) => {
     e.preventDefault();
     dispatch(changeRate(rate));
     dispatch(toggleRateModal(true));
@@ -31,7 +31,7 @@ export const RateItem = ({ rate }: any) => {
           height: "20px",
           marginBottom: "5px",
         }}
-        onClick={openRateModal}
+        onClick={isOpenRateModal}
       >
         Изменить
       </CustomButton>

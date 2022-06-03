@@ -4,6 +4,7 @@ import {
   OPEN_FILTER_MODEL,
   OPEN_CATEGORY_MODAL,
   OPEN_RATE_MODAL,
+  OPEN_ORDER_MODAL,
 } from "./types";
 
 export const openSideBar = (payload: boolean) => ({
@@ -28,5 +29,10 @@ export const toggleCategoryModal = (payload: boolean) => ({
 
 export const toggleRateModal = (payload: boolean) => ({
   type: OPEN_RATE_MODAL,
+  payload,
+});
+
+export const toggleOrderModal = (payload: boolean) => ({
+  type: OPEN_ORDER_MODAL,
   payload,
 });

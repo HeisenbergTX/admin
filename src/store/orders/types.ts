@@ -5,3 +5,4 @@ export const CHOOSE_PAGE_ACTIVE = "CHOOSE_PAGE_ACTIVE";
 export const COUNT_ORDERS = "COUNT_ORDERS";
 export const FILTER_CITY_ID = "FILTER_CITY_ID";
 export const FILTER_RATE_ID = "FILTER_RATE_ID";
+export const CHANGE_ORDER = "CHANGE_ORDER";
