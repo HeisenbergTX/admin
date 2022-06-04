@@ -5,6 +5,7 @@ import {
   OPEN_CATEGORY_MODAL,
   OPEN_RATE_MODAL,
   OPEN_ORDER_MODAL,
+  OPEN_RATE_TYPE_MODAL,
 } from "./types";
 
 export const openSideBar = (payload: boolean) => ({
@@ -34,5 +35,10 @@ export const toggleRateModal = (payload: boolean) => ({
 
 export const toggleOrderModal = (payload: boolean) => ({
   type: OPEN_ORDER_MODAL,
+  payload,
+});
+
+export const toggleRateTypeModal = (payload: boolean) => ({
+  type: OPEN_RATE_TYPE_MODAL,
   payload,
 });

@@ -174,14 +174,3 @@ export const ModalRate = () => {
     </form>
   );
 };
-
-{
-  /* {!!rates.length &&
-              rates.map((rate: IRate) => {
-                console.log(rate);
-
-                return (
-                  <MenuItem key={rate.id}>{rate?.rateTypeId?.name}</MenuItem>
-                );
-              })} */
-}

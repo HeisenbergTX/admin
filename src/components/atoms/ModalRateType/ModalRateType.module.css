@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--white-color);
+  background: var(--white-color);       
   padding: 20px;
   border-radius: 10px;
   box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
@@ -22,22 +22,26 @@ textarea {
   border: 1px solid var(--gray-fill-icon);
 }
 
-.name {
-  width: 100%;
-}
-
-.period {
-  width: 100%;
+.unit {
   padding-top: 5px;
-  padding-bottom: 5px;
 }
 
-.price {
-  width: 100%;
+.nameTextarea {
+  width: 250px;
+  min-height: 10px;
+  resize: none;
+  color: var(--gray-text-color);
+  border-radius: 5px;
+  padding: 5px;
 }
 
-.priceInput::placeholder {
-  padding: 0px;
+.unitTextarea {
+  width: 250px;
+  min-height: 10px;
+  resize: none;
+  color: var(--gray-text-color);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .groupButton {

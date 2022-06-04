@@ -7,8 +7,6 @@ import { FETCH_MODELS_REQUEST } from "./types";
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
 const getModels = (payload: any) => {
-  console.log(payload);
-
   return axios.get(
     `${urlAddress}?limit=10&page=${payload.page - 1}${
       payload.id === undefined ? "" : `&categoryId=${payload.id}`

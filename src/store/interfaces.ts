@@ -59,11 +59,13 @@ export interface IPoint {
 
 export interface IRate {
   price: number;
-  rateTypeId?: {
-    unit: string;
-    name: string;
-    id: string;
-  };
+  rateTypeId?: IRateTypes;
+  id: string;
+}
+
+export interface IRateTypes {
+  unit: string;
+  name: string;
   id: string;
 }
 

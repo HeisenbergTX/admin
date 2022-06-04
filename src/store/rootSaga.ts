@@ -11,6 +11,7 @@ import {
   PostRateSagaWatcher,
   DeleteRateSagaWatcher,
 } from "./rates/sagas";
+import rateTypes from "./rateTypes/sagas";
 
 export function* rootSaga() {
   yield all([
@@ -23,5 +24,6 @@ export function* rootSaga() {
     fork(PutRateSagaWatcher),
     fork(PostRateSagaWatcher),
     fork(DeleteRateSagaWatcher),
+    fork(rateTypes),
   ]);
 }

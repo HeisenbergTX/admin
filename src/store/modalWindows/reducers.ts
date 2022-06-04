@@ -5,6 +5,7 @@ import {
   OPEN_CATEGORY_MODAL,
   OPEN_RATE_MODAL,
   OPEN_ORDER_MODAL,
+  OPEN_RATE_TYPE_MODAL,
 } from "./types";
 
 interface IState {
@@ -14,6 +15,7 @@ interface IState {
   openCategoryModal: boolean;
   openRateModal: boolean;
   openOrderModal: boolean;
+  openRateTypeModal: boolean;
 }
 
 const initialState: IState = {
@@ -23,6 +25,7 @@ const initialState: IState = {
   openCategoryModal: false,
   openRateModal: false,
   openOrderModal: false,
+  openRateTypeModal: false,
 };
 
 export default (
@@ -59,6 +62,11 @@ export default (
       return {
         ...state,
         openOrderModal: payload,
+      };
+    case OPEN_RATE_TYPE_MODAL:
+      return {
+        ...state,
+        openRateTypeModal: payload,
       };
     default:
       return state;
