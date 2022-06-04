@@ -8,6 +8,7 @@ import carCard from "./carCard/reducers";
 import orders from "./orders/reducers";
 import cities from "./cities/reducers";
 import rates from "./rates/reducers";
+import rateTypes from "./rateTypes/reducers";
 
 const rootReducer = combineReducers({
   login,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   orders,
   cities,
   rates,
+  rateTypes,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

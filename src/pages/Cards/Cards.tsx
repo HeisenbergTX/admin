@@ -21,6 +21,9 @@ import { getRates } from "../../store/rates/selectors";
 import { FetchRateRequest } from "../../store/rates/actions";
 import { RateCard } from "../../components/organisms/RateCard/RateCard";
 import { CategoryCard } from "../../components/organisms/CategoryCard/CategoryCard";
+import { RateTypeCard } from "../../components/organisms/RateTypeCard/RateTypeCard";
+import { getRateTypes } from "../../store/rateTypes/selectors";
+import { FetchRateTypeRequest } from "../../store/rateTypes/actions";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -28,6 +31,7 @@ export const Cards = () => {
   const categories = useSelector(getCategories);
   const cities = useSelector(getCities);
   const rates = useSelector(getRates);
+  const rateTypes = useSelector(getRateTypes);
   const tokens = useSelector(pullTokens);
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +53,9 @@ export const Cards = () => {
     }
     if (rates.length === 0) {
       dispatch(FetchRateRequest());
+    }
+    if (rateTypes.length === 0) {
+      dispatch(FetchRateTypeRequest());
     }
     if (location.pathname !== "admin/login" && tokenPresence === false) {
       navigate("admin/login");
@@ -94,6 +101,7 @@ export const Cards = () => {
                   <Route path="orders" element={<OrdersCard />} />
                   <Route path="categories" element={<CategoryCard />} />
                   <Route path="rates" element={<RateCard />} />
+                  <Route path="rateTypes" element={<RateTypeCard />} />
                 </Route>
               </Routes>
             </article>

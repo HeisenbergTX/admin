@@ -64,6 +64,14 @@ export const SideBar = () => {
         <PostsIcon />
         <span className={style.text}>Список тарифов</span>
       </NavLink>
+      <NavLink
+        onClick={clickNavLink}
+        to={"admin/card/rateTypes"}
+        className={style.item}
+      >
+        <PostsIcon />
+        <span className={style.text}>Типы тарифов</span>
+      </NavLink>
     </aside>
   );
 };

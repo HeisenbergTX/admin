@@ -6,6 +6,7 @@ import categories from "./categories/sagas";
 import orders from "./orders/sagas";
 import cities from "./cities/sagas";
 import rates from "./rates/sagas";
+import rateTypes from "./rateTypes/sagas";
 
 export function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export function* rootSaga() {
     fork(orders),
     fork(cities),
     fork(rates),
+    fork(rateTypes),
   ]);
 }
