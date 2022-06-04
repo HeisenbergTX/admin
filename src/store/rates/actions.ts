@@ -4,6 +4,9 @@ import {
   FETCH_RATE_SUCCESS,
   FETCH_RATE_ERROR,
   CHANGE_RATE,
+  PUT_RATE,
+  POST_RATE,
+  DELETE_RATE,
 } from "./types";
 
 export const FetchRateRequest = () => ({
@@ -23,4 +26,29 @@ export const FetchRateError = (payload: any) => ({
 export const changeRate = (payload: IRate | string) => ({
   type: CHANGE_RATE,
   payload,
+});
+
+export const PutRate = (rateUpdate: any, id: string, token: string) => ({
+  type: PUT_RATE,
+  payload: {
+    rateUpdate,
+    id,
+    token,
+  },
+});
+
+export const PostRate = (rateUpdate: any, token: string) => ({
+  type: POST_RATE,
+  payload: {
+    rateUpdate,
+    token,
+  },
+});
+
+export const DeleteRate = (id: string, token: string) => ({
+  type: DELETE_RATE,
+  payload: {
+    id,
+    token,
+  },
 });

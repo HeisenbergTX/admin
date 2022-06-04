@@ -50,11 +50,12 @@ export const Cards = () => {
     if (rates.length === 0) {
       dispatch(FetchRateRequest());
     }
-    if (location.pathname !== "admin/login" && tokenPresence === false) {
-      navigate("admin/login");
-    }
     if (isOpenSideBar) {
       document.body.style.overflowY = "hidden";
+    }
+
+    if (location.pathname !== "admin/login" && tokenPresence === false) {
+      navigate("admin/login");
     }
   }, []);
 
