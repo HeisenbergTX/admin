@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
 import { IRate, IRateTypes } from "../../../store/interfaces";
+import { pullTokens } from "../../../store/login/selectors";
 import { toggleRateModal } from "../../../store/modalWindows/actions";
 import { getValueRateModal } from "../../../store/modalWindows/selectors";
 import { DeleteRate, PostRate, PutRate } from "../../../store/rates/actions";
@@ -17,6 +18,7 @@ export const ModalRate = () => {
   const rates = useSelector(getRates);
   const rateTypes = useSelector(getRateTypes);
   const valueRate = useSelector(getValueRate);
+  const token = useSelector(pullTokens);
   const [cookies] = useCookies(["access_token", "refresh_token"]);
 
   const [valueName, setValueName] = useState<string>();
@@ -34,13 +36,7 @@ export const ModalRate = () => {
     e.preventDefault();
     setValueName("");
     dispatch(toggleRateModal(false));
-    // setValue("idRate", valueRate?.rateTypeId?.id);
-    // setValue("priceRate", valueRate?.price);
-    // setValue("nameRate", valueRate?.rateTypeId?.name);
-    // setValue("unitRate", valueRate?.rateTypeId?.unit);
   };
-
-  console.log(watch("nameRate"));
 
   return (
     <form
@@ -54,15 +50,20 @@ export const ModalRate = () => {
           price: data.priceRate,
         };
 
-        console.log(data);
-
-        if (valueRate?.id) {
+        if (valueRate?.id && cookies.access_token) {
           dispatch(PutRate(rateUpdate, valueRate.id, cookies.access_token));
-        }
-        if (!valueRate?.id) {
+        } else if (valueRate?.id)
+          dispatch(PutRate(rateUpdate, valueRate.id, token?.access_token));
+
+        if (!valueRate?.id && cookies.access_token) {
           dispatch(PostRate(rateUpdate, cookies.access_token));
           setValueName("");
+        } else if (!valueRate?.id) {
+          dispatch(PostRate(rateUpdate, token?.access_token));
+          setValueName("");
         }
+
+        dispatch(toggleRateModal(false));
       })}
       className={style.form}
     >

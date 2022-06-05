@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
+import { pullTokens } from "../../../store/login/selectors";
 import { toggleRateTypeModal } from "../../../store/modalWindows/actions";
 import {
   DeleteRateType,
@@ -16,6 +17,7 @@ import style from "./ModalRateType.module.css";
 export const ModalRateType = () => {
   const dispatch = useDispatch();
   const valueRateType = useSelector(getValueRateType);
+  const token = useSelector(pullTokens);
 
   const [cookies] = useCookies(["access_token", "refresh_token"]);
 
@@ -29,7 +31,7 @@ export const ModalRateType = () => {
     setValue("idRateType", valueRateType?.id);
     setValue("nameRateType", valueRateType?.name);
     setValue("unitRateType", valueRateType?.unit);
-  });
+  }, [valueRateType]);
 
   return (
     <form
@@ -39,12 +41,17 @@ export const ModalRateType = () => {
           name: data.nameRateType,
           unit: data.unitRateType,
         };
-        if (valueRateType?.id) {
+
+        if (valueRateType?.id && cookies.access_token) {
           dispatch(PutRateType(rateTypeUpdate, cookies.access_token));
-        }
-        if (!valueRateType?.id) {
+        } else if (valueRateType?.id)
+          dispatch(PutRateType(rateTypeUpdate, token?.access_token));
+
+        if (!valueRateType?.id && cookies.access_token) {
           dispatch(PostRateType(rateTypeUpdate, cookies.access_token));
-        }
+        } else if (!valueRateType?.id)
+          dispatch(PostRateType(rateTypeUpdate, token?.access_token));
+
         dispatch(toggleRateTypeModal(false));
       })}
       className={style.form}

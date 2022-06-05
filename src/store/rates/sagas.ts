@@ -4,6 +4,7 @@ import axios from "axios";
 import { FetchRateSuccess, FetchRateError } from "./actions";
 import { DELETE_RATE, FETCH_RATE_REQUEST, POST_RATE, PUT_RATE } from "./types";
 import { ResGenerator } from "../interfaces";
+import { chooseStatusRate } from "../ResStatus/actions";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/rate/";
 
@@ -57,12 +58,14 @@ const deleteRate = (payload: any) => {
 function* RateSagaWorker() {
   try {
     const res: ResGenerator = yield call(getRates);
+    yield put(chooseStatusRate(res.status));
     yield put(
       FetchRateSuccess({
         rates: res.data.data,
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusRate(e.response.status));
     FetchRateError({
       error: e,
     });
@@ -76,10 +79,12 @@ function* RateSagaWatcher() {
 function* PutRateSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(putRate, payload);
+    yield put(chooseStatusRate(res.status));
     if (res.status === 200) {
       yield RateSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRate(e.response.status));
     FetchRateError(e);
   }
 }
@@ -91,10 +96,12 @@ export function* PutRateSagaWatcher() {
 function* PostRateSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postRate, payload);
+    yield put(chooseStatusRate(res.status));
     if (res.status === 200) {
       yield RateSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRate(e.response.status));
     FetchRateError(e);
   }
 }
@@ -106,10 +113,12 @@ export function* PostRateSagaWatcher() {
 function* DeleteRateSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(deleteRate, payload);
+    yield put(chooseStatusRate(res.status));
     if (res.status === 200) {
       yield RateSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRate(e.response.status));
     FetchRateError(e);
   }
 }

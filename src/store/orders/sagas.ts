@@ -4,6 +4,7 @@ import axios from "axios";
 import { CountOrders, FethcSuccessOrders, FethcErrorOrders } from "./actions";
 import { FETCH_REQUEST_ORDERS } from "./types";
 import { ResGenerator } from "../interfaces";
+import { chooseStatusOrder } from "../ResStatus/actions";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/order";
 
@@ -25,6 +26,7 @@ const getOrders = (payload: any) =>
 function* OrderSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(getOrders, payload);
+    yield put(chooseStatusOrder(res.status));
     yield put(CountOrders(res.data.count));
     yield put(
       FethcSuccessOrders({
@@ -32,6 +34,7 @@ function* OrderSagaWorker({ payload }: any) {
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusOrder(e.response.status));
     FethcErrorOrders({
       error: e,
     });

@@ -9,6 +9,7 @@ import {
   PUT_CATEGORY,
 } from "./types";
 import { ResGenerator } from "../interfaces";
+import { chooseStatusCategory } from "../ResStatus/actions";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/category/";
 
@@ -61,12 +62,14 @@ const deleteCategory = (payload: any) => {
 function* CategorySagaWorker() {
   try {
     const res: ResGenerator = yield call(getCategory);
+    yield put(chooseStatusCategory(res.status));
     yield put(
       FetchCategorySuccess({
         categories: res.data.data,
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusCategory(e.response.status));
     FetchCategoryError({
       error: e.message,
     });
@@ -80,10 +83,13 @@ function* CategorySagaWatcher() {
 function* PutCategorySagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(putCategory, payload);
+
+    chooseStatusCategory(res.status);
     if (res.status === 200) {
       yield CategorySagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusCategory(e.response.status));
     FetchCategoryError(e);
   }
 }
@@ -95,10 +101,12 @@ export function* PutCategorySagaWatcher() {
 function* PostCategorySagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postCategory, payload);
+    yield put(chooseStatusCategory(res.status));
     if (res.status === 200) {
       yield CategorySagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusCategory(e.response.status));
     FetchCategoryError(e);
   }
 }
@@ -110,10 +118,12 @@ export function* PostCategorySagaWatcher() {
 function* DeleteCategorySagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(deleteCategory, payload);
+    yield put(chooseStatusCategory(res.status));
     if (res.status === 200) {
       yield CategorySagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusCategory(e.response.status));
     FetchCategoryError(e);
   }
 }

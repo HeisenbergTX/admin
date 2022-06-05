@@ -24,8 +24,8 @@ import {
   getValueOrderModal,
 } from "../../../store/modalWindows/selectors";
 import { toggleFilterOrder } from "../../../store/modalWindows/actions";
-import { getRates } from "../../../store/rates/selectors";
 import { ModalOrder } from "../../atoms/ModalOrder/ModalOrder";
+import { pullTokens } from "../../../store/login/selectors";
 
 export const OrdersCard = () => {
   const [page, setPage] = useState(1);
@@ -37,6 +37,7 @@ export const OrdersCard = () => {
   const cityId = useSelector(getCityId);
   const rateId = useSelector(getRateId);
   const valueFilterOrder = useSelector(getValueFilterOrder);
+  const token = useSelector(pullTokens);
 
   const [cookies] = useCookies(["access_token", "refresh_token"]);
 
@@ -50,8 +51,10 @@ export const OrdersCard = () => {
   const countPage = Math.floor(count / 10);
 
   useEffect(() => {
-    if (!orders.length) {
+    if (!orders.length && cookies.access_token) {
       dispatch(FethcRequestOrders(page, cookies.access_token, cityId, rateId));
+    } else if (!orders.length) {
+      dispatch(FethcRequestOrders(page, token?.access_token, cityId, rateId));
     }
   }, [orders]);
 

@@ -32,7 +32,7 @@ function* PostLoginSagaWorker({ payload }: any) {
     yield put(getTokens(res.data));
   } catch (e: any) {
     {
-      getError(e);
+      getError(e.response.status);
     }
   }
 }

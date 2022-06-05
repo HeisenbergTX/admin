@@ -10,12 +10,14 @@ import {
   PutCategory,
 } from "../../../store/categories/actions";
 import { getValueCategory } from "../../../store/categories/selectors";
+import { pullTokens } from "../../../store/login/selectors";
 import { toggleCategoryModal } from "../../../store/modalWindows/actions";
 import style from "./ModalCategory.module.css";
 
 export const ModalCategory = () => {
   const dispatch = useDispatch();
   const valueCategory = useSelector(getValueCategory);
+  const token = useSelector(pullTokens);
 
   const [cookies] = useCookies(["access_token", "refresh_token"]);
 
@@ -29,7 +31,7 @@ export const ModalCategory = () => {
     setValue("idCategory", valueCategory?.id);
     setValue("nameCategory", valueCategory?.name);
     setValue("descriptionCategory", valueCategory?.description);
-  });
+  }, [valueCategory]);
 
   return (
     <form
@@ -42,10 +44,14 @@ export const ModalCategory = () => {
 
         if (valueCategory?.id) {
           dispatch(PutCategory(categoryUpdate, cookies.access_token));
-        }
+        } else if (valueCategory?.id)
+          dispatch(PutCategory(categoryUpdate, token?.access_token));
+
         if (!valueCategory?.id) {
           dispatch(PostCategory(categoryUpdate, cookies.access_token));
-        }
+        } else if (!valueCategory?.id)
+          dispatch(PostCategory(categoryUpdate, token?.access_token));
+
         dispatch(toggleCategoryModal(false));
       })}
       className={style.form}
@@ -57,7 +63,6 @@ export const ModalCategory = () => {
           autoComplete="off"
           size="small"
           placeholder="Введите название"
-          defaultValue={valueCategory?.id && valueCategory.name}
           {...register("nameCategory")}
         />
       </div>

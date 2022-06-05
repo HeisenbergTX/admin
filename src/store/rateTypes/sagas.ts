@@ -9,6 +9,7 @@ import {
   PUT_RATE_TYPE,
 } from "./types";
 import { ResGenerator } from "../interfaces";
+import { chooseStatusRateType } from "../ResStatus/actions";
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/rateType/";
 
 const getRateTypes = () => {
@@ -61,12 +62,14 @@ const deleteRateType = (payload: any) => {
 function* RateTypeSagaWorker() {
   try {
     const res: ResGenerator = yield call(getRateTypes);
+    yield put(chooseStatusRateType(res.status));
     yield put(
       FetchRateTypeSuccess({
         rateTypes: res.data.data,
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusRateType(e.response.status));
     FetchRateTypeError({
       error: e,
     });
@@ -80,10 +83,13 @@ function* RateTypeSagaWatcher() {
 function* PutRateTypeSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(putRateType, payload);
+    yield put(chooseStatusRateType(res.status));
     if (res.status === 200) {
       yield RateTypeSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRateType(e.response.status));
+
     FetchRateTypeError(e);
   }
 }
@@ -95,10 +101,12 @@ export function* PutRateTypeSagaWatcher() {
 function* PostRateTypeSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postRateType, payload);
+    yield put(chooseStatusRateType(res.status));
     if (res.status === 200) {
       yield RateTypeSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRateType(e.response.status));
     FetchRateTypeError(e);
   }
 }
@@ -110,10 +118,12 @@ export function* PostRateTypeSagaWatcher() {
 function* DeleteRateTypeSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(deleteRateType, payload);
+    yield put(chooseStatusRateType(res.status));
     if (res.status === 200) {
       yield RateTypeSagaWorker();
     }
   } catch (e: any) {
+    yield put(chooseStatusRateType(e.response.status));
     FetchRateTypeError(e);
   }
 }

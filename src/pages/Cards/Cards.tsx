@@ -24,6 +24,8 @@ import { CategoryCard } from "../../components/organisms/CategoryCard/CategoryCa
 import { RateTypeCard } from "../../components/organisms/RateTypeCard/RateTypeCard";
 import { getRateTypes } from "../../store/rateTypes/selectors";
 import { FetchRateTypeRequest } from "../../store/rateTypes/actions";
+import { pullAllStatus } from "../../store/ResStatus/selectors";
+import { ErrorCard } from "../../components/organisms/ErrorCard/ErrorCard";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ export const Cards = () => {
   const tokens = useSelector(pullTokens);
   const navigate = useNavigate();
   const location = useLocation();
+  const status = useSelector(pullAllStatus);
   const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
 
   const arrTokens = [
@@ -100,12 +103,57 @@ export const Cards = () => {
             <article className={style.content}>
               <Routes>
                 <Route path="/admin/card/">
-                  <Route path="models" element={<ModelsCard />} />
+                  <Route
+                    path="models"
+                    element={
+                      status?.statusModel?.status >= 400 ? (
+                        <ErrorCard status={status?.statusModel?.status} />
+                      ) : (
+                        <ModelsCard />
+                      )
+                    }
+                  />
                   <Route path="car" element={<CarCard />} />
-                  <Route path="orders" element={<OrdersCard />} />
-                  <Route path="categories" element={<CategoryCard />} />
-                  <Route path="rates" element={<RateCard />} />
-                  <Route path="rateTypes" element={<RateTypeCard />} />
+                  <Route
+                    path="orders"
+                    element={
+                      status?.statusOrder?.status >= 400 ? (
+                        <ErrorCard status={status?.statusOrder?.status} />
+                      ) : (
+                        <OrdersCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="categories"
+                    element={
+                      status?.statusCategory?.status >= 400 ? (
+                        <ErrorCard status={status?.statusCategory?.status} />
+                      ) : (
+                        <CategoryCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="rates"
+                    element={
+                      status?.statusRate?.status >= 400 ? (
+                        <ErrorCard status={status?.statusRate?.status} />
+                      ) : (
+                        <RateCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="rateTypes"
+                    element={
+                      status?.statusRateType?.status >= 400 ? (
+                        <ErrorCard status={status?.statusRateType?.status} />
+                      ) : (
+                        <RateTypeCard />
+                      )
+                    }
+                  />
                 </Route>
               </Routes>
             </article>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { CountModels, FetchModelsSuccess, FetchModelsError } from "./actions";
 import { FETCH_MODELS_REQUEST } from "./types";
 import { ResGenerator } from "../interfaces";
+import { chooseStatusModel } from "../ResStatus/actions";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
@@ -23,6 +24,7 @@ const getModels = (payload: any) => {
 function* ModelSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(getModels, payload);
+    yield put(chooseStatusModel(res.status));
     yield put(CountModels(res.data.count));
     yield put(
       FetchModelsSuccess({
@@ -30,6 +32,7 @@ function* ModelSagaWorker({ payload }: any) {
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusModel(e.response.status));
     FetchModelsError({
       error: e.message,
     });
