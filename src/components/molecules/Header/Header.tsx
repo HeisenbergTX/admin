@@ -4,16 +4,17 @@ import cn from "classnames";
 import { useCookies } from "react-cookie";
 
 import style from "./Header.module.css";
-import logo from "../../../images/Logo.svg";
 import notifications from "../../../images/Notifications.svg";
 import avatar from "../../../images/avatar.svg";
 import { useDispatch } from "react-redux";
 import { getTokens } from "../../../store/login/actions";
 import { useState } from "react";
 import { BurgerMenu } from "../../atoms/BurgerMenu/BurgerMenu";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openOptions, setOpenOptions] = useState(false);
   const [cookies, setCookies, removeCookies] = useCookies([
     "access_token",
@@ -24,8 +25,10 @@ export const Header = () => {
     dispatch(getTokens(""));
     removeCookies("access_token", { path: "/" });
     removeCookies("refresh_token", { path: "/" });
+    navigate("admin/login");
     window.location.reload();
   };
+
   return (
     <header className={style.header}>
       <article className={style.burgerMenu}>

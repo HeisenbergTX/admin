@@ -1,0 +1,51 @@
+.section {
+  border-bottom: 1px solid var(--white-background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.nameRate {
+  width: 100px;
+}
+
+.periodRate {
+  width: 75px;
+}
+
+.priceRate {
+  width: 75px;
+  text-align: right;
+}
+
+.button {
+  transition: all 0.3s;
+  color: var(--gray-text-color);
+  width: 65px;
+  height: 20px;
+  font-size: 11px;
+  border: 1px solid var(--white-background-color);
+  background: transparent;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 540px) {
+  .section {
+    padding: 0 20px;
+  }
+}

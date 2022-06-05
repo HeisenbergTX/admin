@@ -41,5 +41,8 @@
 }
 
 .description {
+  width: 100%;
+  display: flex;
+
   padding-bottom: 45px;
 }

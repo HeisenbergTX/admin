@@ -1,4 +1,4 @@
-import { getTokens } from "./actions";
+import { getError, getTokens } from "./actions";
 import { POST_LOGIN } from "./types";
 import { put, call, takeLatest } from "redux-saga/effects";
 import axios from "axios";
@@ -38,7 +38,9 @@ function* PostLoginSagaWorker({ payload }: any) {
     const res: ResGenerator = yield call(postLogin, payload);
     yield put(getTokens(res.data));
   } catch (e: any) {
-    console.log("error");
+    {
+      getError(e);
+    }
   }
 }
 

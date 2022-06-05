@@ -1,10 +1,10 @@
 import style from "./App.module.css";
-import { AppRoute } from "./pages/AppRoute/AppRoute";
+import { Cards } from "./pages/Cards/Cards";
 
 function App() {
   return (
     <div className={style.app}>
-      <AppRoute />
+      <Cards />
     </div>
   );
 }

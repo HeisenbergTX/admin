@@ -27,6 +27,10 @@
   width: 280px;
 }
 
+.error {
+  border: 1px solid var(--red-color);
+}
+
 @media (min-width: 540px) {
   .textField {
     width: 320px;

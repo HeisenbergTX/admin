@@ -1,0 +1,94 @@
+.section {
+  background: var(--white-color);
+  position: relative;
+  margin-top: 20px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--white-background-color);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.filterModal {
+  left: 0;
+  top: 46px;
+  width: 100%;
+  transition: all 0.2s;
+  opacity: 0;
+  z-index: -10;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: max-content;
+  transition: all 0.3s;
+  position: absolute;
+}
+
+.filterModalOpen {
+  opacity: 1;
+  z-index: 1;
+  background: var(--white-color);
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+.textCount {
+  margin: 0;
+}
+
+.content {
+  min-height: 45vh;
+  max-height: 50vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.table {
+  position: sticky;
+  top: 0;
+  min-width: min-content;
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+.modelItem {
+  min-width: min-content;
+}
+
+.link {
+  min-width: min-content;
+  text-decoration: none;
+}
+
+.item {
+  border-top: 1px solid var(--gray-fill-icon);
+  min-width: min-content;
+  color: var(--blue-color-black);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--white-background-color);
+}
+
+@media (min-height: 700px) {
+  .content {
+    min-height: 550px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .content {
+    max-height: 70vh;
+  }
+}

@@ -1,0 +1,44 @@
+.section {
+  font-family: "Helvetica", sans-serif;
+  color: var(--blue-color-black);
+  width: 100%;
+  height: 100%;
+}
+
+.nameCard {
+  margin: 0;
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.content {
+  border-radius: 10px;
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+.pagination {
+  border-top: 1px solid var(--gray-fill-icon);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  background: var(--white-color);
+  box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+    0px 3.5px 35px rgba(90, 97, 105, 0.1);
+}
+
+@media (min-width: 540px) {
+  .nameCard {
+    margin-left: 20px;
+  }
+  .content {
+    margin: 0 20px;
+  }
+}
