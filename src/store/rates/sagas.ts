@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { FetchRateSuccess, FetchRateError } from "./actions";
 import { DELETE_RATE, FETCH_RATE_REQUEST, POST_RATE, PUT_RATE } from "./types";
+import { ResGenerator } from "../interfaces";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/rate/";
 
@@ -52,14 +53,6 @@ const deleteRate = (payload: any) => {
     },
   });
 };
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
 
 function* RateSagaWorker() {
   try {

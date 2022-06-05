@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { CountModels, FetchModelsSuccess, FetchModelsError } from "./actions";
 import { FETCH_MODELS_REQUEST } from "./types";
+import { ResGenerator } from "../interfaces";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
@@ -18,14 +19,6 @@ const getModels = (payload: any) => {
     }
   );
 };
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
 
 function* ModelSagaWorker({ payload }: any) {
   try {

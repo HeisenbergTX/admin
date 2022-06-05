@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { CountOrders, FethcSuccessOrders, FethcErrorOrders } from "./actions";
 import { FETCH_REQUEST_ORDERS } from "./types";
+import { ResGenerator } from "../interfaces";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/order";
 
@@ -20,14 +21,6 @@ const getOrders = (payload: any) =>
       },
     }
   );
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
 
 function* OrderSagaWorker({ payload }: any) {
   try {

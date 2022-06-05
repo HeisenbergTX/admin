@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { FetchSuccessCities, FetchErrorCities } from "./actions";
 import { FETCH_REQUEST_CITIES } from "./types";
+import { ResGenerator } from "../interfaces";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/city";
 
@@ -13,14 +14,6 @@ const getCities = () => {
     },
   });
 };
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
 
 function* CitySagaWorker() {
   try {

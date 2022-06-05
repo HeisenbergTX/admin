@@ -1,3 +1,11 @@
+export interface ResGenerator {
+  data?: any;
+  headers?: string;
+  request?: any;
+  status?: number;
+  statusText?: string;
+}
+
 export interface ITokens {
   token_type: string;
   access_token: string;

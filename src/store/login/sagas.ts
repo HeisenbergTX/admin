@@ -4,6 +4,7 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import randkey from "randkey";
 import { Buffer } from "buffer";
+import { ResGenerator } from "../interfaces";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/auth/login";
 
@@ -24,14 +25,6 @@ const postLogin = (payload: any) =>
       },
     }
   );
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
 
 function* PostLoginSagaWorker({ payload }: any) {
   try {

@@ -7,13 +7,27 @@ import { ReactComponent as PostsIcon } from "../../../icons/postsIcon.svg";
 import { ReactComponent as NewPostIcon } from "../../../icons/newPostIcon.svg";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { openSideBar } from "../../../store/modalWindows/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  openSideBar,
+  toggleCategoryModal,
+  toggleRateModal,
+  toggleRateTypeModal,
+} from "../../../store/modalWindows/actions";
+import { useEffect } from "react";
+import { getValueSideBar } from "../../../store/modalWindows/selectors";
 
 export const SideBar = () => {
   const dispatch = useDispatch();
+  const valueSideBar = useSelector(getValueSideBar);
 
   const clickNavLink = () => dispatch(openSideBar(false));
+
+  useEffect(() => {
+    dispatch(toggleCategoryModal(false));
+    dispatch(toggleRateModal(false));
+    dispatch(toggleRateTypeModal(false));
+  }, [valueSideBar]);
 
   return (
     <aside className={style.section}>

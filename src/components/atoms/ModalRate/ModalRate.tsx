@@ -4,20 +4,22 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
-import { IRate } from "../../../store/interfaces";
+import { IRate, IRateTypes } from "../../../store/interfaces";
 import { toggleRateModal } from "../../../store/modalWindows/actions";
 import { getValueRateModal } from "../../../store/modalWindows/selectors";
 import { DeleteRate, PostRate, PutRate } from "../../../store/rates/actions";
 import { getRates, getValueRate } from "../../../store/rates/selectors";
+import { getRateTypes } from "../../../store/rateTypes/selectors";
 import style from "./ModalRate.module.css";
 
 export const ModalRate = () => {
   const dispatch = useDispatch();
   const rates = useSelector(getRates);
+  const rateTypes = useSelector(getRateTypes);
   const valueRate = useSelector(getValueRate);
   const [cookies] = useCookies(["access_token", "refresh_token"]);
 
-  const [valueName, setValueName] = useState();
+  const [valueName, setValueName] = useState<string>();
 
   const { register, handleSubmit, setValue, watch } = useForm();
 
@@ -30,13 +32,15 @@ export const ModalRate = () => {
 
   const isCancelClick = (e: any) => {
     e.preventDefault();
-    setValueName(undefined);
+    setValueName("");
     dispatch(toggleRateModal(false));
-    setValue("idRate", valueRate?.rateTypeId?.id);
-    setValue("priceRate", valueRate?.price);
-    setValue("nameRate", valueRate?.rateTypeId?.name);
-    setValue("unitRate", valueRate?.rateTypeId?.unit);
+    // setValue("idRate", valueRate?.rateTypeId?.id);
+    // setValue("priceRate", valueRate?.price);
+    // setValue("nameRate", valueRate?.rateTypeId?.name);
+    // setValue("unitRate", valueRate?.rateTypeId?.unit);
   };
+
+  console.log(watch("nameRate"));
 
   return (
     <form
@@ -50,15 +54,15 @@ export const ModalRate = () => {
           price: data.priceRate,
         };
 
+        console.log(data);
+
         if (valueRate?.id) {
           dispatch(PutRate(rateUpdate, valueRate.id, cookies.access_token));
         }
         if (!valueRate?.id) {
           dispatch(PostRate(rateUpdate, cookies.access_token));
-          setValueName(undefined);
+          setValueName("");
         }
-
-        dispatch(toggleRateModal(false));
       })}
       className={style.form}
     >
@@ -73,24 +77,29 @@ export const ModalRate = () => {
               if (!valueName) {
                 return <em>Выберите тариф</em>;
               } else {
-                return <em>{watch("nameRate")}</em>;
+                return <em>{valueName}</em>;
               }
             }}
             {...register("nameRate")}
           >
-            {rates.map((rate: IRate) => (
-              <MenuItem
-                onClick={() => {
-                  setValueName(watch("nameRate"));
-                  setValue("idRate", rate?.rateTypeId?.id);
-                  setValue("unitRate", rate?.rateTypeId?.unit);
-                }}
-                key={rate?.rateTypeId?.id}
-                value={rate?.rateTypeId?.name}
-              >
-                {rate?.rateTypeId?.name}
-              </MenuItem>
-            ))}
+            <div style={{ height: "200px" }}>
+              {!!rateTypes.length &&
+                rateTypes.map((rateType: IRateTypes) => {
+                  return (
+                    <MenuItem
+                      onClick={() => {
+                        setValueName(rateType?.name);
+                        setValue("idRate", rateType?.id);
+                        setValue("unitRate", rateType?.unit);
+                      }}
+                      key={rateType?.id}
+                      value={rateType?.name}
+                    >
+                      {rateType?.name}
+                    </MenuItem>
+                  );
+                })}
+            </div>
           </Select>
         ) : (
           <TextField
