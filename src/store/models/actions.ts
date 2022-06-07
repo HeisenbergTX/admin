@@ -1,4 +1,5 @@
 import {
+  FETCH_ALL_MODELS_REQUEST,
   FETCH_MODELS_REQUEST,
   FETCH_MODELS_SUCCESS,
   FETCH_MODELS_ERROR,
@@ -31,4 +32,8 @@ export const ChoosePageActive = (payload: number) => ({
 
 export const FetchModelsError = (payload: any) => ({
   type: FETCH_MODELS_ERROR,
+});
+
+export const FethcAllModelRequest = () => ({
+  type: FETCH_ALL_MODELS_REQUEST,
 });

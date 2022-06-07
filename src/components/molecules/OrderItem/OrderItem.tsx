@@ -8,7 +8,6 @@ import style from "./OrderItem.module.css";
 
 export const OrderItem = ({ order }: any) => {
   const dispatch = useDispatch();
-  const openModal = useSelector(getValueOrderModal);
 
   const name = order?.carId?.name;
   const city = order?.cityId?.name;
@@ -17,14 +16,13 @@ export const OrderItem = ({ order }: any) => {
   const dateTo = order?.dateTo;
   const color = order?.color;
   const image = order?.carId?.thumbnail?.path;
-  const rate = order?.rateId?.rateTypeId?.name;
-
-  if (openModal) {
-    dispatch(changeOrder(order));
-  }
+  const orderStatus = order?.orderStatusId?.name;
 
   return (
-    <section className={style.section}>
+    <section
+      onClick={() => dispatch(changeOrder(order))}
+      className={style.section}
+    >
       <div className={style.block}>
         <img className={style.img} src={image} alt="Нет фото" />
         <article className={style.infoOrder}>
@@ -35,16 +33,25 @@ export const OrderItem = ({ order }: any) => {
             dateFrom={dateFrom}
             dateTo={dateTo}
             color={color}
-            rate={rate}
+            status={orderStatus}
           />
         </article>
         <div className={style.checkboxes}>
-          <CheckboxItem name={"Полный бак"} check={order?.isFullTank} />
+          <CheckboxItem
+            name={"Полный бак"}
+            check={order?.isFullTank}
+            disabled={true}
+          />
           <CheckboxItem
             name={"Детское кресло"}
             check={order?.isNeedChildChair}
+            disabled={true}
           />
-          <CheckboxItem name={"Правый руль"} check={order?.isRightWheel} />
+          <CheckboxItem
+            name={"Правый руль"}
+            check={order?.isRightWheel}
+            disabled={true}
+          />
         </div>
         <div className={style.priceAndButtonGroup}>
           <p className={style.price}>{order?.price}₽</p>

@@ -10,6 +10,7 @@ import cities from "./cities/reducers";
 import rates from "./rates/reducers";
 import rateTypes from "./rateTypes/reducers";
 import status from "./ResStatus/reducers";
+import statuses from "./statusOrder/reducers";
 
 const rootReducer = combineReducers({
   login,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   rates,
   rateTypes,
   status,
+  statuses,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -15,15 +15,13 @@ import style from "./ModalRate.module.css";
 
 export const ModalRate = () => {
   const dispatch = useDispatch();
-  const rates = useSelector(getRates);
   const rateTypes = useSelector(getRateTypes);
   const valueRate = useSelector(getValueRate);
   const token = useSelector(pullTokens);
   const [cookies] = useCookies(["access_token", "refresh_token"]);
-
   const [valueName, setValueName] = useState<string>();
 
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     setValue("idRate", valueRate?.rateTypeId?.id);

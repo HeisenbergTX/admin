@@ -1,4 +1,4 @@
-import { IOrders } from "../interfaces";
+import { IOrders } from "./../interfaces";
 import {
   COUNT_ORDERS,
   CHOOSE_PAGE_ACTIVE,
@@ -8,6 +8,8 @@ import {
   FILTER_CITY_ID,
   FILTER_RATE_ID,
   CHANGE_ORDER,
+  DELETE_ORDER,
+  PUT_ORDER,
 } from "./types";
 
 export const CountOrders = (payload: number) => ({
@@ -61,7 +63,24 @@ export const FethcErrorOrders = (payload: any) => ({
   payload,
 });
 
-export const changeOrder = (payload: IOrders) => ({
+export const changeOrder = (payload: IOrders | undefined) => ({
   type: CHANGE_ORDER,
   payload,
+});
+
+export const PutOrder = (order: any, id: string, token: string) => ({
+  type: PUT_ORDER,
+  payload: {
+    order,
+    id,
+    token,
+  },
+});
+
+export const DeleteOrder = (id: string, token: string) => ({
+  type: DELETE_ORDER,
+  payload: {
+    id,
+    token,
+  },
 });

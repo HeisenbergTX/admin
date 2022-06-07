@@ -5,6 +5,7 @@ import {
   FETCH_MODELS_SUCCESS,
   CHOOSE_PAGE_ACTIVE,
   FETCH_MODELS_ERROR,
+  FETCH_ALL_MODELS_REQUEST,
 } from "./types";
 
 interface IState {
@@ -34,6 +35,11 @@ export default (
         countModels: payload,
       };
     case FETCH_MODELS_REQUEST:
+      return {
+        ...state,
+        pending: true,
+      };
+    case FETCH_ALL_MODELS_REQUEST:
       return {
         ...state,
         pending: true,

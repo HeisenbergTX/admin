@@ -2,6 +2,7 @@ import { all, fork } from "redux-saga/effects";
 
 import login from "./login/sagas";
 import models from "./models/sagas";
+import { AllModelSagaWatcher } from "./models/sagas";
 import categories from "./categories/sagas";
 import orders from "./orders/sagas";
 import cities from "./cities/sagas";
@@ -22,6 +23,11 @@ import {
   PutCategorySagaWatcher,
   DeleteCategorySagaWatcher,
 } from "./categories/sagas";
+import {
+  PutOrderSagaWatcher,
+  DeleteOrderSagaWatcher,
+} from "./orders/sagas";
+import statuses from "./statusOrder/sagas";
 
 export function* rootSaga() {
   yield all([
@@ -41,5 +47,9 @@ export function* rootSaga() {
     fork(PostCategorySagaWatcher),
     fork(PutCategorySagaWatcher),
     fork(DeleteCategorySagaWatcher),
+    fork(PutOrderSagaWatcher),
+    fork(DeleteOrderSagaWatcher),
+    fork(AllModelSagaWatcher),
+    fork(statuses),
   ]);
 }

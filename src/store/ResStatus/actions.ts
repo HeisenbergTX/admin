@@ -4,6 +4,7 @@ import {
   GET_STATUS_ORDERS,
   GET_STATUS_RATES,
   GET_STATUS_RATE_TYPES,
+  GET_STATUS_PUT_ORDERS,
 } from "./types";
 
 export const chooseStatusModel = (status: number | undefined) => ({
@@ -18,6 +19,11 @@ export const chooseStatusCategory = (status: number | undefined) => ({
 
 export const chooseStatusOrder = (status: number | undefined) => ({
   type: GET_STATUS_ORDERS,
+  payload: { status },
+});
+
+export const chooseStatusPutOrder = (status: number | undefined) => ({
+  type: GET_STATUS_PUT_ORDERS,
   payload: { status },
 });
 

@@ -1,68 +1,213 @@
-import { TextField } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import shape from "../../../icons/Shape.svg";
 import cross from "../../../icons/Cross.svg";
 import basket from "../../../icons/basket.png";
 import { toggleOrderModal } from "../../../store/modalWindows/actions";
 import { getValueOrder } from "../../../store/orders/selectors";
-import { CheckboxItem } from "../CheckboxItem/CheckboxItem";
 import style from "./ModalOrder.module.css";
+import { useCookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import {
+  changeOrder,
+  DeleteOrder,
+  PutOrder,
+} from "../../../store/orders/actions";
+import { IModels } from "../../../store/interfaces";
+import { getModelPendng, getModels } from "../../../store/models/selectors";
+import { FethcAllModelRequest } from "../../../store/models/actions";
+import { CustomLoadingButton } from "../../../assets/Buttons/buttons";
+import { getStatuses } from "../../../store/statusOrder/selectors";
+import { pullTokens } from "../../../store/login/selectors";
 
 export const ModalOrder = () => {
   const dispatch = useDispatch();
   const valueOrder = useSelector(getValueOrder);
+  const models = useSelector(getModels);
+  const pending = useSelector(getModelPendng);
+  const statuses = useSelector(getStatuses);
+  const token = useSelector(pullTokens);
+  const [cookies] = useCookies(["access_token", "refresh_token"]);
 
-  const isUpdateClick = (e: any) => {
-    e.preventDefault();
-  };
+  const [valueCar, setValueCar] = useState<any>();
+  const [valueStatus, setValueStatus] = useState<any>();
+  const [valueColor, setValueColor] = useState<any>();
+
+  const { register, handleSubmit, setValue, watch } = useForm();
+
+  useEffect(() => {
+    setValue("id", valueOrder?.id);
+    setValue("carId", valueOrder?.carId);
+    setValue("orderStatusId", valueOrder?.orderStatusId);
+    setValue("color", valueOrder?.color);
+    setValue("dateTo", valueOrder?.dateTo);
+    setValue("dateFrom", valueOrder?.dateFrom);
+    setValue("price", valueOrder?.price);
+    setValue("cityId", valueOrder?.cityId);
+    setValue("pointId", valueOrder?.pointId);
+    setValue("isFullTank", valueOrder?.isFullTank);
+    setValue("isNeedChildChair", valueOrder?.isNeedChildChair);
+    setValue("isRightWheel", valueOrder?.isRightWheel);
+  }, [valueOrder]);
 
   const isCancelClick = (e: any) => {
     e.preventDefault();
+    dispatch(changeOrder(undefined));
     dispatch(toggleOrderModal(false));
   };
 
-  const isDeleteClick = (e: any) => {
-    e.preventDefault();
-  };
-
   return (
-    <form className={style.form}>
+    <form
+      onSubmit={handleSubmit((data: any) => {
+        const order = {
+          carId: data.carId || valueCar || valueOrder?.carId?.name,
+          cityId: data.cityId,
+          color: data.color || valueColor,
+          dateFrom: data.dateFrom,
+          dateTo: data.dateTo,
+          isFullTank: data.isFullTank,
+          isNeedChildChair: data.isNeedChildChair,
+          isRightWheel: data.isRightWheel,
+          orderStatusId: data.orderStatusId || valueStatus,
+          pointId: data.pointId,
+          price: data.price,
+        };
+
+        if (valueOrder?.id && cookies.access_token) {
+          dispatch(PutOrder(order, data.id, cookies.access_token));
+        } else if (valueOrder?.id)
+          dispatch(PutOrder(order, data.id, token?.access_token));
+
+        dispatch(toggleOrderModal(false));
+      })}
+      className={style.form}
+    >
       <div className={style.blockTextField}>
         <div className={style.name}>
-          <p className={style.nameRate}>Автомобиль</p>
-          <TextField
-            size="small"
-            type="text"
-            fullWidth
-            autoComplete="off"
-            className={style.nameTextarea}
-            placeholder="Введите автомобиль"
-            value={valueOrder?.id ? valueOrder?.carId?.name : ""}
-          />
+          <p className={style.nameRate}>Название</p>
+          {valueOrder?.id && (
+            <Select
+              displayEmpty
+              size="small"
+              fullWidth
+              renderValue={() => {
+                if (!valueCar) {
+                  return <em>{valueOrder?.carId?.name}</em>;
+                } else {
+                  return <em>{valueCar?.name}</em>;
+                }
+              }}
+              {...register("carId")}
+            >
+              <div style={{ height: "200px" }}>
+                {!!models.length ? (
+                  models.map((model: IModels) => {
+                    return (
+                      <MenuItem
+                        onClick={() => {
+                          setValueCar(model);
+                        }}
+                     
+                        key={model?.id}
+                        value={model?.name}
+                      >
+                        {model?.name}
+                      </MenuItem>
+                    );
+                  })
+                ) : (
+                  <article className={style.modelLoad}>
+                    <p className={style.text}>
+                      Для выбора машины необходимо загрузить все авто
+                    </p>
+                    <CustomLoadingButton
+                      loading={pending}
+                      onClick={() => dispatch(FethcAllModelRequest())}
+                    >
+                      Загрузить
+                    </CustomLoadingButton>
+                  </article>
+                )}
+              </div>
+            </Select>
+          )}
         </div>
         <div className={style.period}>
           <p className={style.periodRate}>Статус заказа</p>
-          <TextField
-            size="small"
-            type="text"
-            autoComplete="off"
-            className={style.periodTextarea}
-            placeholder="Выберите статус"
-            fullWidth
-            value={valueOrder?.id ? valueOrder?.orderStatusId?.name : ""}
-          />
+          {valueOrder?.id && (
+            <Select
+              displayEmpty
+              size="small"
+              fullWidth
+              renderValue={() => {
+                if (!valueStatus) {
+                  return <em>{watch("orderStatusId")?.name}</em>;
+                } else {
+                  return <em>{valueStatus?.name}</em>;
+                }
+              }}
+              {...register("orderStatusId")}
+            >
+              <div style={{ height: "200px" }}>
+                {!!statuses.length &&
+                  statuses.map((status: any) => {
+                    return (
+                      <MenuItem
+                        onClick={() => {
+                          setValueStatus(status);
+                        }}
+                        style={{
+                          width: "200px",
+                        }}
+                        key={status?.id}
+                        value={status?.name}
+                      >
+                        {status?.name}
+                      </MenuItem>
+                    );
+                  })}
+              </div>
+            </Select>
+          )}
         </div>
         <div className={style.period}>
           <p className={style.periodRate}>Цвет</p>
-          <TextField
-            size="small"
-            type="text"
-            autoComplete="off"
-            className={style.periodTextarea}
-            placeholder="Выберите цвет"
-            fullWidth
-            value={valueOrder?.id ? valueOrder?.color : ""}
-          />
+          {valueOrder?.carId?.id && (
+            <Select
+              displayEmpty
+              size="small"
+              fullWidth
+              renderValue={() => {
+                if (!valueColor) {
+                  return <em>{valueOrder?.color}</em>;
+                } else {
+                  return <em>{valueColor}</em>;
+                }
+              }}
+              {...register("color")}
+            >
+              <div style={{ height: "200px" }}>
+                {!!valueOrder?.carId &&
+                  valueOrder?.carId?.colors.map((color: any) => {
+                    return (
+                      <MenuItem
+                        onClick={() => {
+                          setValueColor(color);
+                        }}
+                        style={{
+                          width: "200px",
+                        }}
+                        key={color}
+                        value={color}
+                      >
+                        {color}
+                      </MenuItem>
+                    );
+                  })}
+              </div>
+            </Select>
+          )}
         </div>
         <div className={style.price}>
           <p className={style.priceRate}>Стоимость</p>
@@ -73,23 +218,44 @@ export const ModalOrder = () => {
             fullWidth
             autoComplete="off"
             className={style.priceInput}
-            value={valueOrder?.id ? valueOrder?.price : ""}
+            {...register("price")}
           />
         </div>
       </div>
       <div className={style.blockImgCheckBoxButton}>
         <img
           className={style.img}
-          src={valueOrder?.carId?.thumbnail?.path}
+          src={valueCar?.thumbnail?.path || valueOrder?.carId?.thumbnail?.path}
           alt=""
         />
         <div className={style.checkboxes}>
-          <CheckboxItem name={"Полный бак"} check={true} />
-          <CheckboxItem name={"Детское кресло"} check={true} />
-          <CheckboxItem name={"Правый руль"} check={true} />
+          <label className={style.customCheckbox}>
+            <input
+              type="checkbox"
+              defaultChecked={valueOrder?.isFullTank}
+              {...register("isFullTank")}
+            />
+            <span>Полный бак</span>
+          </label>
+          <label className={style.customCheckbox}>
+            <input
+              type="checkbox"
+              defaultChecked={valueOrder?.isNeedChildChair}
+              {...register("isNeedChildChair")}
+            />
+            <span>Детское кресло</span>
+          </label>
+          <label className={style.customCheckbox}>
+            <input
+              type="checkbox"
+              defaultChecked={valueOrder?.isRightWheel}
+              {...register("isRightWheel")}
+            />
+            <span>Правый руль</span>
+          </label>
         </div>
         <article className={style.buttonGroup}>
-          <button className={style.button} onClick={isUpdateClick}>
+          <button className={style.button} type="submit">
             <img className={style.icon} src={shape} alt="" />
             Готово
           </button>
@@ -97,7 +263,14 @@ export const ModalOrder = () => {
             <img className={style.icon} src={cross} alt="" />
             Отмена
           </button>
-          <button className={style.button} onClick={isDeleteClick}>
+          <button
+            className={style.button}
+            onClick={(e: any) => {
+              e.preventDefault();
+              dispatch(DeleteOrder(valueOrder?.id, cookies.access_token));
+              dispatch(toggleOrderModal(false));
+            }}
+          >
             <img className={style.icon} src={basket} alt="" />
             Удалить
           </button>

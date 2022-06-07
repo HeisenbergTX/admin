@@ -26,6 +26,8 @@ import { getRateTypes } from "../../store/rateTypes/selectors";
 import { FetchRateTypeRequest } from "../../store/rateTypes/actions";
 import { pullAllStatus } from "../../store/ResStatus/selectors";
 import { ErrorCard } from "../../components/organisms/ErrorCard/ErrorCard";
+import { FetchRequestStatusOrder } from "../../store/statusOrder/actions";
+import { getStatuses } from "../../store/statusOrder/selectors";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ export const Cards = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const status = useSelector(pullAllStatus);
+  const statuses = useSelector(getStatuses);
   const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
 
   const arrTokens = [
@@ -60,6 +63,10 @@ export const Cards = () => {
     if (rateTypes.length === 0) {
       dispatch(FetchRateTypeRequest());
     }
+    if (statuses.length === 0) {
+      dispatch(FetchRequestStatusOrder());
+    }
+
     if (location.pathname !== "admin/login" && tokenPresence === false) {
       navigate("admin/login");
     }
