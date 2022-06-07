@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/admin/static/css/main.7317c293.css",
-    "main.js": "/admin/static/js/main.c8af284c.js",
+    "main.css": "/admin/static/css/main.9c94ebb4.css",
+    "main.js": "/admin/static/js/main.deb0f2cc.js",
     "static/media/Helvetica-Regular.otf": "/admin/static/media/Helvetica-Regular.da7db66db5a8e54a8308.otf",
     "static/media/Roboto-Thin.ttf": "/admin/static/media/Roboto-Thin.1711b41f3ae4cb322eea.ttf",
     "static/media/Roboto-Regular.ttf": "/admin/static/media/Roboto-Regular.a8d6ac03c7b96b7acb62.ttf",
@@ -18,11 +18,11 @@
     "static/media/newPostIcon.svg": "/admin/static/media/newPostIcon.1d20595b4d970cdacf9c826fb55053e8.svg",
     "static/media/Cross.svg": "/admin/static/media/Cross.ebfbf7fc23a4eeda15963f5c613914fc.svg",
     "static/media/Shape.svg": "/admin/static/media/Shape.35a8bd90455c6a26240a44fa53938483.svg",
-    "main.7317c293.css.map": "/admin/static/css/main.7317c293.css.map",
-    "main.c8af284c.js.map": "/admin/static/js/main.c8af284c.js.map"
+    "main.9c94ebb4.css.map": "/admin/static/css/main.9c94ebb4.css.map",
+    "main.deb0f2cc.js.map": "/admin/static/js/main.deb0f2cc.js.map"
   },
   "entrypoints": [
-    "static/css/main.7317c293.css",
-    "static/js/main.c8af284c.js"
+    "static/css/main.9c94ebb4.css",
+    "static/js/main.deb0f2cc.js"
   ]
 }
