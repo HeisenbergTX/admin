@@ -24,6 +24,9 @@ import { CategoryCard } from "../../components/organisms/CategoryCard/CategoryCa
 import { RateTypeCard } from "../../components/organisms/RateTypeCard/RateTypeCard";
 import { getRateTypes } from "../../store/rateTypes/selectors";
 import { FetchRateTypeRequest } from "../../store/rateTypes/actions";
+import { pullAllStatus } from "../../store/ResStatus/selectors";
+import { ErrorCard } from "../../components/organisms/ErrorCard/ErrorCard";
+import Cookies from "js-cookie";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -32,29 +35,23 @@ export const Cards = () => {
   const cities = useSelector(getCities);
   const rates = useSelector(getRates);
   const rateTypes = useSelector(getRateTypes);
-  const tokens = useSelector(pullTokens);
   const navigate = useNavigate();
   const location = useLocation();
-  const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
+  const status = useSelector(pullAllStatus);
 
-  const arrTokens = [
-    tokens?.access_token,
-    tokens?.refresh_token,
-    cookies.access_token,
-    cookies.refresh_token,
-  ];
+  const arrTokens = [Cookies.get("access_token"), Cookies.get("refresh_token")];
 
   useEffect(() => {
-    if (categories.length === 0) {
+    if (categories.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchCategoryRequest());
     }
-    if (cities.length === 0) {
+    if (cities.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRequestCities());
     }
-    if (rates.length === 0) {
+    if (rates.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRateRequest());
     }
-    if (rateTypes.length === 0) {
+    if (rateTypes.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRateTypeRequest());
     }
     if (location.pathname !== "admin/login" && tokenPresence === false) {
@@ -63,19 +60,19 @@ export const Cards = () => {
     if (isOpenSideBar) {
       document.body.style.overflowY = "hidden";
     }
+
+    if (location.pathname !== "admin/login" && tokenPresence === false) {
+      navigate("admin/login");
+    }
   }, []);
 
-  const tokenPresence = arrTokens.some((token) => token);
-
   useEffect(() => {
-    if (tokens) {
-      setCookie("access_token", tokens?.access_token, { path: "/admin/card/" });
-      setCookie("refresh_token", tokens?.refresh_token, {
-        path: "/admin/card/",
-      });
-      navigate("admin/card/models");
+    if (status?.statusLogin?.status === 200) {
+      navigate("/admin/card/models");
     }
-  }, [tokens]);
+  }, [status?.statusLogin]);
+
+  const tokenPresence = arrTokens.some((token) => token);
 
   return (
     <>
@@ -96,12 +93,57 @@ export const Cards = () => {
             <article className={style.content}>
               <Routes>
                 <Route path="/admin/card/">
-                  <Route path="models" element={<ModelsCard />} />
+                  <Route
+                    path="models"
+                    element={
+                      status?.statusModel?.status >= 400 ? (
+                        <ErrorCard status={status?.statusModel?.status} />
+                      ) : (
+                        <ModelsCard />
+                      )
+                    }
+                  />
                   <Route path="car" element={<CarCard />} />
-                  <Route path="orders" element={<OrdersCard />} />
-                  <Route path="categories" element={<CategoryCard />} />
-                  <Route path="rates" element={<RateCard />} />
-                  <Route path="rateTypes" element={<RateTypeCard />} />
+                  <Route
+                    path="orders"
+                    element={
+                      status?.statusOrder?.status >= 400 ? (
+                        <ErrorCard status={status?.statusOrder?.status} />
+                      ) : (
+                        <OrdersCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="categories"
+                    element={
+                      status?.statusCategory?.status >= 400 ? (
+                        <ErrorCard status={status?.statusCategory?.status} />
+                      ) : (
+                        <CategoryCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="rates"
+                    element={
+                      status?.statusRate?.status >= 400 ? (
+                        <ErrorCard status={status?.statusRate?.status} />
+                      ) : (
+                        <RateCard />
+                      )
+                    }
+                  />
+                  <Route
+                    path="rateTypes"
+                    element={
+                      status?.statusRateType?.status >= 400 ? (
+                        <ErrorCard status={status?.statusRateType?.status} />
+                      ) : (
+                        <RateTypeCard />
+                      )
+                    }
+                  />
                 </Route>
               </Routes>
             </article>

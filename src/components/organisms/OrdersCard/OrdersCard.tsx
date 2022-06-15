@@ -24,8 +24,9 @@ import {
   getValueOrderModal,
 } from "../../../store/modalWindows/selectors";
 import { toggleFilterOrder } from "../../../store/modalWindows/actions";
-import { getRates } from "../../../store/rates/selectors";
 import { ModalOrder } from "../../atoms/ModalOrder/ModalOrder";
+import { pullTokens } from "../../../store/login/selectors";
+import Cookies from "js-cookie";
 
 export const OrdersCard = () => {
   const [page, setPage] = useState(1);
@@ -38,8 +39,6 @@ export const OrdersCard = () => {
   const rateId = useSelector(getRateId);
   const valueFilterOrder = useSelector(getValueFilterOrder);
 
-  const [cookies] = useCookies(["access_token", "refresh_token"]);
-
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(ChoosePageActive(value));
     setPage(value);
@@ -50,14 +49,16 @@ export const OrdersCard = () => {
   const countPage = Math.floor(count / 10);
 
   useEffect(() => {
-    if (!orders.length) {
-      dispatch(FethcRequestOrders(page, cookies.access_token, cityId, rateId));
+    if (!orders.length && Cookies.get("access_token")) {
+      dispatch(FethcRequestOrders(page, cityId, rateId));
+    } else if (!orders.length) {
+      dispatch(FethcRequestOrders(page, cityId, rateId));
     }
   }, [orders]);
 
   useEffect(() => {
     if (orders.length > 0 && page === pageActive) {
-      dispatch(FethcRequestOrders(page, cookies.access_token, cityId, rateId));
+      dispatch(FethcRequestOrders(page, cityId, rateId));
     }
   }, [page, cityId, rateId]);
 

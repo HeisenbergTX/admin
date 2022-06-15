@@ -1,26 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
+import { instance } from "../../api";
 
 import { FetchSuccessCities, FetchErrorCities } from "./actions";
 import { FETCH_REQUEST_CITIES } from "./types";
+import { ResGenerator } from "../interfaces";
 
-const urlAddress = "https://api-factory.simbirsoft1.com/api/db/city";
-
-const getCities = () => {
-  return axios.get(urlAddress, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-    },
-  });
-};
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
+const getCities = () => instance.get("city");
 
 function* CitySagaWorker() {
   try {

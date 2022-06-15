@@ -1,46 +1,29 @@
-import { getError, getTokens } from "./actions";
+import { login } from "./../../api/index";
+import { getError } from "./actions";
 import { POST_LOGIN } from "./types";
 import { put, call, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-import randkey from "randkey";
-import { Buffer } from "buffer";
-
-const urlAddress = "https://api-factory.simbirsoft1.com/api/auth/login";
-
-const authKey64 = Buffer.from(
-  `${randkey.rand(8)}:${process.env.REACT_APP_SECRET_KEY as string}`,
-  "utf-8"
-).toString("base64");
+import { ResGenerator } from "../interfaces";
+import Cookies from "js-cookie";
+import { chooseStatusLogin } from "../ResStatus/actions";
 
 const postLogin = (payload: any) =>
-  axios.post(
-    urlAddress,
-    {
-      ...payload,
-    },
-    {
-      headers: {
-        Authorization: `Basic ${authKey64}`,
-      },
-    }
-  );
-
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
+  login.post("login", {
+    ...payload,
+  });
 
 function* PostLoginSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postLogin, payload);
-    yield put(getTokens(res.data));
+    yield put(chooseStatusLogin(res.status));
+    Cookies.set("access_token", res.data.access_token);
+    Cookies.set("refresh_token", res.data.refresh_token);
   } catch (e: any) {
-    {
-      getError(e);
-    }
+    yield put(
+      getError({
+        code: e.code,
+        status: e.response.status,
+      })
+    );
   }
 }
 

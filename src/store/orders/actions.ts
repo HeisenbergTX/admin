@@ -7,7 +7,7 @@ import {
   FETCH_ERROR_ORDERS,
   FILTER_CITY_ID,
   FILTER_RATE_ID,
-  CHANGE_ORDER
+  CHANGE_ORDER,
 } from "./types";
 
 export const CountOrders = (payload: number) => ({
@@ -22,14 +22,12 @@ export const ChoosePageActive = (payload: number) => ({
 
 export const FethcRequestOrders = (
   page: number,
-  token: string,
   cityId: string | undefined,
   rateId: string | undefined
 ) => ({
   type: FETCH_REQUEST_ORDERS,
   payload: {
     page,
-    token,
     cityId,
     rateId,
   },

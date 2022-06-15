@@ -7,6 +7,21 @@ import orders from "./orders/sagas";
 import cities from "./cities/sagas";
 import rates from "./rates/sagas";
 import rateTypes from "./rateTypes/sagas";
+import {
+  PutRateSagaWatcher,
+  PostRateSagaWatcher,
+  DeleteRateSagaWatcher,
+} from "./rates/sagas";
+import {
+  PostRateTypeSagaWatcher,
+  PutRateTypeSagaWatcher,
+  DeleteRateTypeSagaWatcher,
+} from "./rateTypes/sagas";
+import {
+  PostCategorySagaWatcher,
+  PutCategorySagaWatcher,
+  DeleteCategorySagaWatcher,
+} from "./categories/sagas";
 
 export function* rootSaga() {
   yield all([
@@ -16,6 +31,15 @@ export function* rootSaga() {
     fork(orders),
     fork(cities),
     fork(rates),
+    fork(PutRateSagaWatcher),
+    fork(PostRateSagaWatcher),
+    fork(DeleteRateSagaWatcher),
     fork(rateTypes),
+    fork(PutRateTypeSagaWatcher),
+    fork(PostRateTypeSagaWatcher),
+    fork(DeleteRateTypeSagaWatcher),
+    fork(PostCategorySagaWatcher),
+    fork(PutCategorySagaWatcher),
+    fork(DeleteCategorySagaWatcher),
   ]);
 }

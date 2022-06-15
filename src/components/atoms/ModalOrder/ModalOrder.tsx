@@ -77,7 +77,6 @@ export const ModalOrder = () => {
           />
         </div>
       </div>
-
       <div className={style.blockImgCheckBoxButton}>
         <img
           className={style.img}

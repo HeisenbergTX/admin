@@ -17,11 +17,12 @@
   padding-bottom: 3px;
 }
 
-textarea {
-  border: 1px solid var(--gray-fill-icon);
+.name {
+  width: 100%;
 }
 
 .description {
+  width: 100%;
   padding-top: 5px;
 }
 
