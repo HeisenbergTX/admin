@@ -22,14 +22,12 @@ export const ChoosePageActive = (payload: number) => ({
 
 export const FethcRequestOrders = (
   page: number,
-  token: any,
   cityId: string | undefined,
   rateId: string | undefined
 ) => ({
   type: FETCH_REQUEST_ORDERS,
   payload: {
     page,
-    token,
     cityId,
     rateId,
   },

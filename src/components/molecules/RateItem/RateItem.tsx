@@ -15,26 +15,27 @@ export const RateItem = ({ rate }: any) => {
 
   return (
     <section className={style.section}>
-      <div className={style.item}>
-        <p className={style.nameRate}>
-          {rate?.rateTypeId?.name ? rate?.rateTypeId?.name : "Нет названия"}
-        </p>
-        <p className={style.periodRate}>
-          {rate?.rateTypeId?.unit ? rate?.rateTypeId?.unit : "Неизвестно"}
-        </p>
+      <p className={style.nameRate}>
+        {rate?.rateTypeId?.name ? rate?.rateTypeId?.name : "Нет названия"}
+      </p>
+      <p className={style.periodRate}>
+        {rate?.rateTypeId?.unit ? rate?.rateTypeId?.unit : "Неизвестно"}
+      </p>
+      <div>
         <p className={style.priceRate}>{rate?.price}₽</p>
+        <CustomButton
+          className={style.open}
+          style={{
+            width: "75px",
+            fontSize: "11px",
+            height: "20px",
+            marginBottom: "5px",
+          }}
+          onClick={isOpenRateModal}
+        >
+          Изменить
+        </CustomButton>
       </div>
-      <CustomButton
-        style={{
-          width: "75px",
-          fontSize: "11px",
-          height: "20px",
-          marginBottom: "5px",
-        }}
-        onClick={isOpenRateModal}
-      >
-        Изменить
-      </CustomButton>
     </section>
   );
 };

@@ -1,59 +1,25 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-
 import { FetchRateSuccess, FetchRateError } from "./actions";
 import { DELETE_RATE, FETCH_RATE_REQUEST, POST_RATE, PUT_RATE } from "./types";
 import { ResGenerator } from "../interfaces";
 import { chooseStatusRate } from "../ResStatus/actions";
+import { instance } from "../../api";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/rate/";
 
-const getRates = () => {
-  return axios.get(urlAddress, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-    },
+const getRates = () => instance.get("rate/");
+
+const putRate = (payload: any) =>
+  instance.put(`rate/${payload.id}`, {
+    ...payload.rateUpdate,
   });
-};
 
-const putRate = (payload: any) => {
-  return axios.put(
-    `${urlAddress}${payload.id}`,
-    {
-      ...payload.rateUpdate,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const postRate = (payload: any) => {
-  return axios.post(
-    urlAddress,
-    {
-      ...payload.rateUpdate,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const deleteRate = (payload: any) => {
-  return axios.delete(`${urlAddress}${payload.id}`, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-      Authorization: `Bearer ${payload?.token}`,
-    },
+const postRate = (payload: any) =>
+  instance.post("rate/", {
+    ...payload.rateUpdate,
   });
-};
+
+const deleteRate = (payload: any) => instance.delete(`rate/${payload.id}`);
 
 function* RateSagaWorker() {
   try {

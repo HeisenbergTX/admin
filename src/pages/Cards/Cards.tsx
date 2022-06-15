@@ -26,6 +26,7 @@ import { getRateTypes } from "../../store/rateTypes/selectors";
 import { FetchRateTypeRequest } from "../../store/rateTypes/actions";
 import { pullAllStatus } from "../../store/ResStatus/selectors";
 import { ErrorCard } from "../../components/organisms/ErrorCard/ErrorCard";
+import Cookies from "js-cookie";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -34,30 +35,23 @@ export const Cards = () => {
   const cities = useSelector(getCities);
   const rates = useSelector(getRates);
   const rateTypes = useSelector(getRateTypes);
-  const tokens = useSelector(pullTokens);
   const navigate = useNavigate();
   const location = useLocation();
   const status = useSelector(pullAllStatus);
-  const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
 
-  const arrTokens = [
-    tokens?.access_token,
-    tokens?.refresh_token,
-    cookies.access_token,
-    cookies.refresh_token,
-  ];
+  const arrTokens = [Cookies.get("access_token"), Cookies.get("refresh_token")];
 
   useEffect(() => {
-    if (categories.length === 0) {
+    if (categories.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchCategoryRequest());
     }
-    if (cities.length === 0) {
+    if (cities.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRequestCities());
     }
-    if (rates.length === 0) {
+    if (rates.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRateRequest());
     }
-    if (rateTypes.length === 0) {
+    if (rateTypes.length === 0 && Cookies.get("access_token")) {
       dispatch(FetchRateTypeRequest());
     }
     if (location.pathname !== "admin/login" && tokenPresence === false) {
@@ -72,17 +66,13 @@ export const Cards = () => {
     }
   }, []);
 
-  const tokenPresence = arrTokens.some((token) => token);
-
   useEffect(() => {
-    if (tokens) {
-      setCookie("access_token", tokens?.access_token, { path: "/admin/card/" });
-      setCookie("refresh_token", tokens?.refresh_token, {
-        path: "/admin/card/",
-      });
-      navigate("admin/card/models");
+    if (status?.statusLogin?.status === 200) {
+      navigate("/admin/card/models");
     }
-  }, [tokens]);
+  }, [status?.statusLogin]);
+
+  const tokenPresence = arrTokens.some((token) => token);
 
   return (
     <>

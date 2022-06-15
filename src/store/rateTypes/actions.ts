@@ -28,26 +28,23 @@ export const changeRateType = (payload: IRateTypes | undefined) => ({
   payload,
 });
 
-export const PutRateType = (rateType: IRateTypes, token: string) => ({
+export const PutRateType = (rateType: IRateTypes) => ({
   type: PUT_RATE_TYPE,
   payload: {
     rateType,
-    token,
   },
 });
 
-export const PostRateType = (rateType: IRateTypes, token: string) => ({
+export const PostRateType = (rateType: IRateTypes) => ({
   type: POST_RATE_TYPE,
   payload: {
     rateType,
-    token,
   },
 });
 
-export const DeleteRateType = (id: string, token: string) => ({
+export const DeleteRateType = (id: string) => ({
   type: DELETE_RATE_TYPE,
   payload: {
     id,
-    token,
   },
 });

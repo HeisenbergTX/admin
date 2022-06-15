@@ -1,6 +1,4 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-
 import { FetchCategorySuccess, FetchCategoryError } from "./actions";
 import {
   DELETE_CATEGORY,
@@ -10,54 +8,24 @@ import {
 } from "./types";
 import { ResGenerator } from "../interfaces";
 import { chooseStatusCategory } from "../ResStatus/actions";
+import { instance } from "../../api";
 
-const urlAddress = "https://api-factory.simbirsoft1.com/api/db/category/";
+const getCategory = () => instance.get("/category/");
 
-const getCategory = () =>
-  axios.get(urlAddress, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-    },
+const putCategory = (payload: any) =>
+  instance.put(`/category/${payload.category.id}`, {
+    ...payload.category,
   });
 
-const putCategory = (payload: any) => {
-  return axios.put(
-    `${urlAddress}${payload.category.id}`,
-    {
-      ...payload.category,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const postCategory = (payload: any) => {
-  return axios.post(
-    urlAddress,
-    {
-      ...payload.category,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const deleteCategory = (payload: any) => {
-  return axios.delete(`${urlAddress}${payload.id}`, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-      Authorization: `Bearer ${payload?.token}`,
-    },
+const postCategory = (payload: any) =>
+  instance.post(`/category/${payload.category.id}`, {
+    ...payload.category,
   });
-};
+
+const deleteCategory = (payload: any) =>
+  instance.delete(`/category/${payload.category.id}`, {
+    ...payload.category,
+  });
 
 function* CategorySagaWorker() {
   try {

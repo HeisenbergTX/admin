@@ -4,6 +4,7 @@ import {
   GET_STATUS_ORDERS,
   GET_STATUS_RATES,
   GET_STATUS_RATE_TYPES,
+  GET_STATUS_LOGIN,
 } from "./types";
 
 interface IState {
@@ -12,6 +13,7 @@ interface IState {
   statusCategory?: number;
   statusRate?: number;
   statusRateType?: number;
+  statusLogin?: number;
 }
 
 const initialState: IState = {};
@@ -45,6 +47,11 @@ export default (
       return {
         ...state,
         statusRateType: payload,
+      };
+    case GET_STATUS_LOGIN:
+      return {
+        ...state,
+        statusLogin: payload,
       };
     default:
       return state;

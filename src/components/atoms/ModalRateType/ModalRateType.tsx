@@ -1,10 +1,8 @@
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
-import { pullTokens } from "../../../store/login/selectors";
 import { toggleRateTypeModal } from "../../../store/modalWindows/actions";
 import {
   DeleteRateType,
@@ -17,40 +15,25 @@ import style from "./ModalRateType.module.css";
 export const ModalRateType = () => {
   const dispatch = useDispatch();
   const valueRateType = useSelector(getValueRateType);
-  const token = useSelector(pullTokens);
 
-  const [cookies] = useCookies(["access_token", "refresh_token"]);
-
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const isCancelClick = () => {
     dispatch(toggleRateTypeModal(false));
   };
 
   useEffect(() => {
-    setValue("idRateType", valueRateType?.id);
-    setValue("nameRateType", valueRateType?.name);
-    setValue("unitRateType", valueRateType?.unit);
+    setValue("id", valueRateType?.id);
+    setValue("name", valueRateType?.name);
+    setValue("unit", valueRateType?.unit);
   }, [valueRateType]);
 
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        const rateTypeUpdate = {
-          id: data.idRateType,
-          name: data.nameRateType,
-          unit: data.unitRateType,
-        };
+        if (valueRateType?.id) dispatch(PutRateType(data));
 
-        if (valueRateType?.id && cookies.access_token) {
-          dispatch(PutRateType(rateTypeUpdate, cookies.access_token));
-        } else if (valueRateType?.id)
-          dispatch(PutRateType(rateTypeUpdate, token?.access_token));
-
-        if (!valueRateType?.id && cookies.access_token) {
-          dispatch(PostRateType(rateTypeUpdate, cookies.access_token));
-        } else if (!valueRateType?.id)
-          dispatch(PostRateType(rateTypeUpdate, token?.access_token));
+        if (!valueRateType?.id) dispatch(PostRateType(data));
 
         dispatch(toggleRateTypeModal(false));
       })}
@@ -63,7 +46,7 @@ export const ModalRateType = () => {
           fullWidth
           autoComplete="off"
           placeholder="Введите название"
-          {...register("nameRateType")}
+          {...register("name")}
         />
       </div>
       <div className={style.unit}>
@@ -73,7 +56,7 @@ export const ModalRateType = () => {
           fullWidth
           autoComplete="off"
           placeholder="Укажите длительность"
-          {...register("unitRateType")}
+          {...register("unit")}
         />
       </div>
       <div className={style.groupButton}>
@@ -111,7 +94,7 @@ export const ModalRateType = () => {
             }}
             onClick={(e: any) => {
               e.preventDefault();
-              dispatch(DeleteRateType(valueRateType?.id, cookies.access_token));
+              dispatch(DeleteRateType(valueRateType?.id));
               dispatch(toggleRateTypeModal(false));
             }}
           >

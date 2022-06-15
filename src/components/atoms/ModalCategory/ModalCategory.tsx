@@ -1,6 +1,5 @@
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
@@ -10,47 +9,33 @@ import {
   PutCategory,
 } from "../../../store/categories/actions";
 import { getValueCategory } from "../../../store/categories/selectors";
-import { pullTokens } from "../../../store/login/selectors";
 import { toggleCategoryModal } from "../../../store/modalWindows/actions";
 import style from "./ModalCategory.module.css";
 
 export const ModalCategory = () => {
   const dispatch = useDispatch();
   const valueCategory = useSelector(getValueCategory);
-  const token = useSelector(pullTokens);
 
-  const [cookies] = useCookies(["access_token", "refresh_token"]);
-
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const isCancelClick = () => {
     dispatch(toggleCategoryModal(false));
   };
 
   useEffect(() => {
-    setValue("idCategory", valueCategory?.id);
-    setValue("nameCategory", valueCategory?.name);
-    setValue("descriptionCategory", valueCategory?.description);
+    setValue("id", valueCategory?.id);
+    setValue("name", valueCategory?.name);
+    setValue("description", valueCategory?.description);
   }, [valueCategory]);
 
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        const categoryUpdate = {
-          id: data.idCategory,
-          name: data.nameCategory,
-          description: data.descriptionCategory,
-        };
+        console.log(data);
 
-        if (valueCategory?.id) {
-          dispatch(PutCategory(categoryUpdate, cookies.access_token));
-        } else if (valueCategory?.id)
-          dispatch(PutCategory(categoryUpdate, token?.access_token));
+        if (valueCategory?.id) dispatch(PutCategory(data));
 
-        if (!valueCategory?.id) {
-          dispatch(PostCategory(categoryUpdate, cookies.access_token));
-        } else if (!valueCategory?.id)
-          dispatch(PostCategory(categoryUpdate, token?.access_token));
+        if (!valueCategory?.id) dispatch(PostCategory(data));
 
         dispatch(toggleCategoryModal(false));
       })}
@@ -63,7 +48,7 @@ export const ModalCategory = () => {
           autoComplete="off"
           size="small"
           placeholder="Введите название"
-          {...register("nameCategory")}
+          {...register("name")}
         />
       </div>
       <div className={style.description}>
@@ -74,7 +59,7 @@ export const ModalCategory = () => {
           fullWidth
           size="small"
           placeholder="Введите описание"
-          {...register("descriptionCategory")}
+          {...register("description")}
         />
       </div>
       <div className={style.groupButton}>
@@ -112,7 +97,7 @@ export const ModalCategory = () => {
             }}
             onClick={(e: any) => {
               e.preventDefault();
-              dispatch(DeleteCategory(valueCategory?.id, cookies.access_token));
+              dispatch(DeleteCategory(valueCategory?.id));
               dispatch(toggleCategoryModal(false));
             }}
           >

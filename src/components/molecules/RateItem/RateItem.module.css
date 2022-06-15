@@ -1,17 +1,10 @@
 .section {
   border-bottom: 1px solid var(--white-background-color);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .section p {

@@ -1,4 +1,4 @@
-import { IRate } from "../interfaces";
+import { IRate } from "./../interfaces";
 import {
   FETCH_RATE_REQUEST,
   FETCH_RATE_SUCCESS,
@@ -28,27 +28,24 @@ export const changeRate = (payload: IRate | string) => ({
   payload,
 });
 
-export const PutRate = (rateUpdate: any, id: string, token: string) => ({
+export const PutRate = (rateUpdate: IRate, id: string) => ({
   type: PUT_RATE,
   payload: {
     rateUpdate,
     id,
-    token,
   },
 });
 
-export const PostRate = (rateUpdate: any, token: string) => ({
+export const PostRate = (rateUpdate: IRate) => ({
   type: POST_RATE,
   payload: {
     rateUpdate,
-    token,
   },
 });
 
-export const DeleteRate = (id: string, token: string) => ({
+export const DeleteRate = (id: string) => ({
   type: DELETE_RATE,
   payload: {
     id,
-    token,
   },
 });

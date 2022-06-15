@@ -66,15 +66,15 @@ export interface IPoint {
 }
 
 export interface IRate {
-  price: number;
+  price?: number;
   rateTypeId?: IRateTypes;
-  id: string;
+  id?: string;
 }
 
 export interface IRateTypes {
-  unit: string;
-  name: string;
-  id: string;
+  unit?: string;
+  name?: string;
+  id?: string;
 }
 
 export interface ICar {
@@ -98,8 +98,8 @@ export interface IThumbnail {
 }
 
 export interface ICategory {
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   id?: string;
 }
 

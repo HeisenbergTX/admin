@@ -4,6 +4,7 @@ import {
   GET_STATUS_ORDERS,
   GET_STATUS_RATES,
   GET_STATUS_RATE_TYPES,
+  GET_STATUS_LOGIN,
 } from "./types";
 
 export const chooseStatusModel = (status: number | undefined) => ({
@@ -28,5 +29,10 @@ export const chooseStatusRate = (status: number | undefined) => ({
 
 export const chooseStatusRateType = (status: number | undefined) => ({
   type: GET_STATUS_RATE_TYPES,
+  payload: { status },
+});
+
+export const chooseStatusLogin = (status: number | undefined) => ({
+  type: GET_STATUS_LOGIN,
   payload: { status },
 });

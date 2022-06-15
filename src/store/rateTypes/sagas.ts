@@ -1,6 +1,5 @@
+import { instance } from "./../../api/index";
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-
 import { FetchRateTypeSuccess, FetchRateTypeError } from "./actions";
 import {
   DELETE_RATE_TYPE,
@@ -10,54 +9,21 @@ import {
 } from "./types";
 import { ResGenerator } from "../interfaces";
 import { chooseStatusRateType } from "../ResStatus/actions";
-const urlAddress = "https://api-factory.simbirsoft1.com/api/db/rateType/";
 
-const getRateTypes = () => {
-  return axios.get(urlAddress, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-    },
+const getRateTypes = () => instance.get("rateType/");
+
+const putRateType = (payload: any) =>
+  instance.put(`rateType/${payload.rateType.id}`, {
+    ...payload.rateType,
   });
-};
 
-const putRateType = (payload: any) => {
-  return axios.put(
-    `${urlAddress}${payload.rateType.id}`,
-    {
-      ...payload.rateType,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const postRateType = (payload: any) => {
-  return axios.post(
-    urlAddress,
-    {
-      ...payload.rateType,
-    },
-    {
-      headers: {
-        "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-        Authorization: `Bearer ${payload?.token}`,
-      },
-    }
-  );
-};
-
-const deleteRateType = (payload: any) => {
-  return axios.delete(`${urlAddress}${payload.id}`, {
-    headers: {
-      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
-      Authorization: `Bearer ${payload?.token}`,
-    },
+const postRateType = (payload: any) =>
+  instance.post("rateType/", {
+    ...payload.rateType,
   });
-};
+
+const deleteRateType = (payload: any) =>
+  instance.delete(`rateType/${payload.id}`);
 
 function* RateTypeSagaWorker() {
   try {

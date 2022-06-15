@@ -1,40 +1,35 @@
-import { MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import { MenuItem, Select, TextField } from "@mui/material";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../pages/Login/Login";
-import { IRate, IRateTypes } from "../../../store/interfaces";
-import { pullTokens } from "../../../store/login/selectors";
+import { IRateTypes } from "../../../store/interfaces";
 import { toggleRateModal } from "../../../store/modalWindows/actions";
-import { getValueRateModal } from "../../../store/modalWindows/selectors";
+
 import { DeleteRate, PostRate, PutRate } from "../../../store/rates/actions";
-import { getRates, getValueRate } from "../../../store/rates/selectors";
+import { getValueRate } from "../../../store/rates/selectors";
 import { getRateTypes } from "../../../store/rateTypes/selectors";
 import style from "./ModalRate.module.css";
 
 export const ModalRate = () => {
   const dispatch = useDispatch();
-  const rates = useSelector(getRates);
   const rateTypes = useSelector(getRateTypes);
   const valueRate = useSelector(getValueRate);
-  const token = useSelector(pullTokens);
-  const [cookies] = useCookies(["access_token", "refresh_token"]);
-
-  const [valueName, setValueName] = useState<string>();
 
   const { register, handleSubmit, setValue, watch } = useForm();
 
   useEffect(() => {
     setValue("idRate", valueRate?.rateTypeId?.id);
     setValue("priceRate", valueRate?.price);
-    setValue("nameRate", valueRate?.rateTypeId?.name);
+    setValue("nameRate", valueRate?.rateTypeId?.name || "");
     setValue("unitRate", valueRate?.rateTypeId?.unit);
   }, [valueRate]);
 
   const isCancelClick = (e: any) => {
     e.preventDefault();
-    setValueName("");
+    setValue("nameRate", undefined);
+    setValue("unitRate", undefined);
+    setValue("unitRate", undefined);
     dispatch(toggleRateModal(false));
   };
 
@@ -50,17 +45,13 @@ export const ModalRate = () => {
           price: data.priceRate,
         };
 
-        if (valueRate?.id && cookies.access_token) {
-          dispatch(PutRate(rateUpdate, valueRate.id, cookies.access_token));
-        } else if (valueRate?.id)
-          dispatch(PutRate(rateUpdate, valueRate.id, token?.access_token));
+        if (valueRate?.id) dispatch(PutRate(rateUpdate, valueRate.id));
 
-        if (!valueRate?.id && cookies.access_token) {
-          dispatch(PostRate(rateUpdate, cookies.access_token));
-          setValueName("");
-        } else if (!valueRate?.id) {
-          dispatch(PostRate(rateUpdate, token?.access_token));
-          setValueName("");
+        if (!valueRate?.id) {
+          dispatch(PostRate(rateUpdate));
+          setValue("nameRate", undefined);
+          setValue("unitRate", undefined);
+          setValue("unitRate", undefined);
         }
 
         dispatch(toggleRateModal(false));
@@ -72,35 +63,29 @@ export const ModalRate = () => {
         {!valueRate?.id ? (
           <Select
             displayEmpty
+            value={watch("nameRate") || ""}
             size="small"
             fullWidth
-            renderValue={() => {
-              if (!valueName) {
-                return <em>Выберите тариф</em>;
-              } else {
-                return <em>{valueName}</em>;
-              }
-            }}
             {...register("nameRate")}
           >
-            <div style={{ height: "200px" }}>
-              {!!rateTypes.length &&
-                rateTypes.map((rateType: IRateTypes) => {
-                  return (
-                    <MenuItem
-                      onClick={() => {
-                        setValueName(rateType?.name);
-                        setValue("idRate", rateType?.id);
-                        setValue("unitRate", rateType?.unit);
-                      }}
-                      key={rateType?.id}
-                      value={rateType?.name}
-                    >
-                      {rateType?.name}
-                    </MenuItem>
-                  );
-                })}
-            </div>
+            <MenuItem style={{ display: "none" }} value="">
+              Выберите тариф
+            </MenuItem>
+            {!!rateTypes.length &&
+              rateTypes.map((rateType: IRateTypes) => {
+                return (
+                  <MenuItem
+                    onClick={() => {
+                      setValue("idRate", rateType?.id);
+                      setValue("unitRate", rateType?.unit);
+                    }}
+                    key={rateType?.id}
+                    value={rateType?.name}
+                  >
+                    {rateType?.name}
+                  </MenuItem>
+                );
+              })}
           </Select>
         ) : (
           <TextField
@@ -173,7 +158,7 @@ export const ModalRate = () => {
             }}
             onClick={(e: any) => {
               e.preventDefault();
-              dispatch(DeleteRate(valueRate?.id, cookies.access_token));
+              dispatch(DeleteRate(valueRate?.id));
               dispatch(toggleRateModal(false));
             }}
           >

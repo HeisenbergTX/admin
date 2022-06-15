@@ -42,28 +42,26 @@ export const changeCategory = (
 
 export const FetchCategoryError = (payload: any) => ({
   type: FETCH_CATEGORY_ERROR,
+  payload,
 });
 
-export const PutCategory = (category: ICategory, token: string) => ({
+export const PutCategory = (category: ICategory) => ({
   type: PUT_CATEGORY,
   payload: {
     category,
-    token,
   },
 });
 
-export const PostCategory = (category: ICategory, token: string) => ({
+export const PostCategory = (category: ICategory) => ({
   type: POST_CATEGORY,
   payload: {
     category,
-    token,
   },
 });
 
-export const DeleteCategory = (id: string, token: string) => ({
+export const DeleteCategory = (id: string) => ({
   type: DELETE_CATEGORY,
   payload: {
     id,
-    token,
   },
 });

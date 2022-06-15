@@ -41,10 +41,28 @@
 }
 
 .title {
+  position: relative;
   text-align: center;
   margin: 0;
   margin-bottom: 20px;
   font-size: 18px;
+}
+
+.none {
+  opacity: 0;
+  transition: all 0.3s;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  color: var(--red-color);
+  font-size: 12px;
+}
+
+.error {
+  top: 25px;
+  opacity: 1;
 }
 
 .text {

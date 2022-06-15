@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -15,6 +15,7 @@ import logo from "../../images/Logo.svg";
 import style from "./Login.module.css";
 import { postLogin } from "../../store/login/actions";
 import { useState } from "react";
+import { getError } from "../../store/login/selectors";
 
 export const CustomButton = styled(Button)({
   backgroundColor: "#007BFF",
@@ -39,6 +40,7 @@ export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const { register, handleSubmit, watch } = useForm();
   const dispatch = useDispatch();
+  const error = useSelector(getError);
 
   const username = watch("login");
   const password = watch("password");
@@ -63,11 +65,18 @@ export const Login = () => {
       </article>
       <div className={style.form}>
         <form onSubmit={handleSubmit((data) => data)}>
-          <p className={style.title}>Вход</p>
+          <p className={style.title}>
+            <p>Вход</p>
+            <p className={cn(style.none, { [style.error]: error?.code })}>
+              {error?.code}
+            </p>
+          </p>
+
           <p className={style.text}>Почта</p>
           <TextField
             type={"email"}
             placeholder="Введите email"
+            error={error?.status === 0}
             size="small"
             className={style.textField}
             {...register("login")}
@@ -77,6 +86,7 @@ export const Login = () => {
             className={style.textField}
             autoComplete="off"
             size="small"
+            error={error?.status === 0}
             type={passwordVisibility ? "text" : "password"}
             placeholder="Введите пароль"
             {...register("password")}
