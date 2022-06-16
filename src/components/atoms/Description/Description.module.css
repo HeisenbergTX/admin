@@ -14,13 +14,3 @@
 .text {
   color: var(--gray-text-color);
 }
-
-textarea {
-  width: 100%;
-  min-height: 50px;
-  resize: none;
-  color: var(--gray-text-color);
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-}

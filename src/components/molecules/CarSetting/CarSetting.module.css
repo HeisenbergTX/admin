@@ -1,5 +1,5 @@
 .section {
-  margin-top: 20px;
+  margin: 20px 0;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 40px;
@@ -31,19 +31,56 @@
   border: 1px solid var(--red-color);
 }
 
+.groupButton {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.delete {
+  margin-top: 10px;
+}
+
 @media (min-width: 540px) {
   .textField {
     width: 320px;
+  }
+  .groupButton {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .buttons {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 250px;
+  }
+  .delete {
+    margin: 0;
   }
 }
 
 @media (min-width: 1024px) {
   .section {
+    padding-right: 0;
     height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+  
+  .settings {
+    overflow-y: auto;
+  }
+
   .blockTextField {
     display: flex;
     flex-wrap: wrap;

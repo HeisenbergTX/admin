@@ -2,7 +2,9 @@ import { IModels } from "../interfaces";
 import {
   CHOOSE_DEFAULT_CAR_CARD,
   CHOOSE_CHANGE_CAR_CARD,
-  EDIT_NAME_CAR,
+  CHANGE_CAR_CATEGORY,
+  CHANGE_CAR_DESCRIPTION,
+  CHANGE_CAR_NAME,
 } from "./types";
 
 interface IState {
@@ -30,7 +32,33 @@ export default (
         ...state,
         changeCarCard: payload,
       };
-
+    case CHANGE_CAR_CATEGORY: {
+      return {
+        ...state,
+        changeCarCard: {
+          ...state.changeCarCard,
+          categoryId: payload,
+        },
+      };
+    }
+    case CHANGE_CAR_DESCRIPTION: {
+      return {
+        ...state,
+        changeCarCard: {
+          ...state.changeCarCard,
+          description: payload?.description,
+        },
+      };
+    }
+    case CHANGE_CAR_NAME: {
+      return {
+        ...state,
+        changeCarCard: {
+          ...state.changeCarCard,
+          name: payload?.name,
+        },
+      };
+    }
     default:
       return state;
   }

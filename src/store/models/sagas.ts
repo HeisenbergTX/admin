@@ -10,7 +10,7 @@ const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
 const getModels = (payload: any) => {
   return axios.get(
-    `${urlAddress}?limit=10&page=${payload.page - 1}${
+    `${urlAddress}?limit=1&page=${payload.page - 1}${
       payload.id === undefined ? "" : `&categoryId=${payload.id}`
     }`,
     {

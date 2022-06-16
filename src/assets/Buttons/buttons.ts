@@ -8,16 +8,12 @@ export const CustomButton = styled(Button)({
   width: "110px",
   height: "30px",
   borderRadius: "5px",
-  border: "1px solid #007BFF",
+  border: "none",
   textTransform: "none",
   transition: "0.3s",
   "&:hover": {
     backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
     boxShadow: "none",
-  },
-  "&:active": {
-    transform: "scale(0.95)",
   },
 });
 
@@ -27,15 +23,11 @@ export const CustomLoadingButton = styled(LoadingButton)({
   width: "110px",
   height: "30px",
   borderRadius: "5px",
-  border: "1px solid #007BFF",
+  border: "none",
   textTransform: "none",
   transition: "0.3s",
   "&:hover": {
     backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
     boxShadow: "none",
-  },
-  "&:active": {
-    transform: "scale(0.95)",
   },
 });

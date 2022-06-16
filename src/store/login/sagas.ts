@@ -1,10 +1,11 @@
 import { getError, getTokens } from "./actions";
 import { POST_LOGIN } from "./types";
-import { put, call, takeLatest } from "redux-saga/effects";
+import {  call, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import randkey from "randkey";
 import { Buffer } from "buffer";
 import { ResGenerator } from "../interfaces";
+import Cookies from "js-cookie";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/auth/login";
 
@@ -29,7 +30,8 @@ const postLogin = (payload: any) =>
 function* PostLoginSagaWorker({ payload }: any) {
   try {
     const res: ResGenerator = yield call(postLogin, payload);
-    yield put(getTokens(res.data));
+    Cookies.set("access_token", res.data.access_token);
+    Cookies.set("refresh_token", res.data.refresh_token);
   } catch (e: any) {
     {
       getError(e.response.status);
