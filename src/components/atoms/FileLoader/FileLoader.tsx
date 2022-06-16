@@ -1,20 +1,29 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { getChangeCarCard } from "../../../store/carCard/selectors";
 import style from "./FileLoader.module.css";
 
 export const FileLoader = () => {
-  const { register, handleSubmit, watch } = useForm();
-
-  const value = watch("valueFile");
+  const valueCar = useSelector(getChangeCarCard);
+  const { register, watch } = useForm();
 
   return (
-    <form onSubmit={handleSubmit((data) => data)} className={style.section}>
+    <section className={style.section}>
       <p className={style.text}>
-        {value ? value[0]?.name : "Выберите файл..."}
+        {!!watch("valueFile")?.length
+          ? watch("valueFile")[0].name
+          : "Выберите файл..."}
       </p>
       <label className={style.label}>
-        <input type="file" className={style.input} {...register("valueFile")} />
+        <input
+          type="file"
+          accept="image/*"
+          className={style.input}
+          {...register("valueFile")}
+        />
         <div>Обзор</div>
       </label>
-    </form>
+    </section>
   );
 };

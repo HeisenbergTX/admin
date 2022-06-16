@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--white-color);       
+  background: var(--white-color);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 1px 1px 0px rgba(90, 97, 105, 0.11),
@@ -18,11 +18,12 @@
   padding-bottom: 3px;
 }
 
-textarea {
-  border: 1px solid var(--gray-fill-icon);
+.name {
+  width: 100%;
 }
 
 .unit {
+  width: 100%;
   padding-top: 5px;
 }
 

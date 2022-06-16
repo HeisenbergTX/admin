@@ -2,15 +2,15 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 import { CountModels, FetchModelsSuccess, FetchModelsError } from "./actions";
-import { FETCH_MODELS_REQUEST } from "./types";
+import { FETCH_ALL_MODELS_REQUEST, FETCH_MODELS_REQUEST } from "./types";
+import { ResGenerator } from "../interfaces";
+import { chooseStatusModel } from "../ResStatus/actions";
 
 const urlAddress = "https://api-factory.simbirsoft1.com/api/db/car/";
 
 const getModels = (payload: any) => {
-  console.log(payload);
-
   return axios.get(
-    `${urlAddress}?limit=10&page=${payload.page - 1}${
+    `${urlAddress}?limit=1&page=${payload.page - 1}${
       payload.id === undefined ? "" : `&categoryId=${payload.id}`
     }`,
     {
@@ -21,17 +21,18 @@ const getModels = (payload: any) => {
   );
 };
 
-interface ResGenerator {
-  data?: any;
-  headers?: string;
-  request?: any;
-  status?: number;
-  statusText?: string;
-}
+const getAllModels = () => {
+  return axios.get(urlAddress, {
+    headers: {
+      "x-api-factory-application-id": `${process.env.REACT_APP_API_KEY}`,
+    },
+  });
+};
 
-function* ModelSagaWorker({ payload }: any) {
+function* AllModelSagaWorker() {
   try {
-    const res: ResGenerator = yield call(getModels, payload);
+    const res: ResGenerator = yield call(getAllModels);
+    yield put(chooseStatusModel(res.status));
     yield put(CountModels(res.data.count));
     yield put(
       FetchModelsSuccess({
@@ -39,6 +40,29 @@ function* ModelSagaWorker({ payload }: any) {
       })
     );
   } catch (e: any) {
+    yield put(chooseStatusModel(e.response.status));
+    FetchModelsError({
+      error: e.message,
+    });
+  }
+}
+
+export function* AllModelSagaWatcher() {
+  yield takeLatest(FETCH_ALL_MODELS_REQUEST, AllModelSagaWorker);
+}
+
+function* ModelSagaWorker({ payload }: any) {
+  try {
+    const res: ResGenerator = yield call(getModels, payload);
+    yield put(chooseStatusModel(res.status));
+    yield put(CountModels(res.data.count));
+    yield put(
+      FetchModelsSuccess({
+        models: res.data.data,
+      })
+    );
+  } catch (e: any) {
+    yield put(chooseStatusModel(e.response.status));
     FetchModelsError({
       error: e.message,
     });

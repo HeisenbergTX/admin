@@ -7,7 +7,7 @@ interface IProps {
   dateFrom: number;
   dateTo: number;
   color: string;
-  rate: string;
+  status: string;
 }
 
 export const InfoOrder: React.FC<IProps> = ({
@@ -17,7 +17,7 @@ export const InfoOrder: React.FC<IProps> = ({
   dateFrom,
   dateTo,
   color,
-  rate,
+  status,
 }) => {
   const convertDateFrom = new Date(dateFrom).toLocaleString().slice(0, -3);
   const convertDateTo = new Date(dateTo).toLocaleString().slice(0, -3);
@@ -36,8 +36,8 @@ export const InfoOrder: React.FC<IProps> = ({
       <p className={style.color}>
         Цвет: <span>{color}</span>
       </p>
-      <p className={style.rate}>
-        Тариф: <span>{rate ? rate : "нет тарифа"}</span>
+      <p className={style.status}>
+        Статус: <span>{status}</span>
       </p>
     </section>
   );

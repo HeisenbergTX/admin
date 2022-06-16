@@ -6,3 +6,5 @@ export const COUNT_ORDERS = "COUNT_ORDERS";
 export const FILTER_CITY_ID = "FILTER_CITY_ID";
 export const FILTER_RATE_ID = "FILTER_RATE_ID";
 export const CHANGE_ORDER = "CHANGE_ORDER";
+export const PUT_ORDER = "PUT_ORDER";
+export const DELETE_ORDER = "DELETE_ORDER";
